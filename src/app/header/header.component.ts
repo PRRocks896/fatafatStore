@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogin() {
-    this.router.navigate(['registration']);
+    this.router.navigate(['login']);
   }
 
 }
