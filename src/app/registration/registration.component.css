@@ -1,0 +1,25 @@
+.astrik {
+    color: red;
+}
+
+.card-container {
+    height: 450px;
+}
+
+.form-card-body {
+    padding-bottom: 0%;
+    overflow-y: scroll;
+}
+
+.submit-button {
+    text-align: center;
+    align-self: center;
+}
+
+.get-otp-button, .verify-otp-button {
+    padding-bottom: 3%;
+}
+
+#formHeading {
+    text-align: center;
+}

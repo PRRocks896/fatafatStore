@@ -1,0 +1,14 @@
+.fatafat-heading {
+    padding-left: 0%;
+}
+
+
+.map-button {
+    padding-left: 0%;
+}
+
+.fatafat-imageClass, .fatafat-heading, .registration-button, .map-button {
+    text-align: center;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}

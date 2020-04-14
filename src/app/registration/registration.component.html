@@ -1,0 +1,68 @@
+<div class="container-xl registration-container">
+    <h6 id="formHeading">Registration Form</h6>
+    <div class="card card-container">
+        <div class="card-body form-card-body">
+            <form [formGroup]="signUpForm" id="registrationForm" (ngSubmit)="onSubmit()">
+                <div class="container">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="shopName">Shop Name<i class="astrik">*</i></label>
+                                <input type="text" class="form-control" formControlName="shopName" placeholder="Shop Name"> <br>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="password">Password<i class="astrik">*</i></label>
+                                <input type="password" class="form-control" formControlName="password" placeholder="Password"> <br>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="ownerName">Shop Owner<i class="astrik">*</i></label>
+                                <input type="text" class="form-control" formControlName="ownerName" placeholder="Shop Owner"> <br>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="shopAddress">Shop Address<i class="astrik">*</i></label>
+                                <input type="text" class="form-control" formControlName="shopAddress" placeholder="Shop Address"> <br>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="picode">Pincode<i class="astrik">*</i></label>
+                                <input type="number" class="form-control" formControlName="pincode" placeholder="Pincode"> <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="number">WhatsApp Number<i class="astrik">*</i></label>
+                                <input type="number" class="form-control" formControlName="number" placeholder="Number"> <br>
+                            </div>
+                            <div class="col-md-2 get-otp-button">
+                                <button type="button" class="btn btn-dark" (click)="onGetOtp()">Get OTP</button>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="otp">OTP<i class="astrik">*</i></label>
+                                <input type="password" class="form-control" formControlName="otp" placeholder="OTP"> <br>
+                            </div>
+                            <div class="col-md-2 verify-otp-button">
+                                <button type="button" class="btn btn-dark" (click)="onVerifyOtp()">Verify</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="email">Email<i class="astrik">*</i></label>
+                                <input type="email" class="form-control" formControlName="email" placeholder="Email"> <br>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="deliveryMedium">Medium of Delivery<i class="astrik">*</i></label>
+                                <input type="text" class="form-control" formControlName="deliveryMedium" placeholder="Delivery Medium"> <br>
+                            </div>
+                            <div class="col-md-12"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="row submit-button">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-dark" form="registrationForm">CREATE MY ACCOUNT</button>
+        </div>
+    </div>
+</div>
