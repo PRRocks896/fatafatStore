@@ -3,12 +3,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { RegistrationComponent } from './registration/registration.component';
 import { MapComponent } from './map/map.component';
 import { LoginComponent } from './login/login.component';
+import { StoredetailComponent } from './customer/storedetail/storedetail.component';
+import { UserformComponent } from './customer/userform/userform.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 const routes: Routes = [
   { path: '', component: MapComponent },
   { path: 'map', component: MapComponent },
-  {  path: 'login', component: LoginComponent },
-  { path: 'registration', component: RegistrationComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'registration', component: RegistrationComponent },
+  { path: 'customer/storedetail', component: StoredetailComponent },
+  { path: 'customer/userform', component: UserformComponent},
+  { path: '**', component: NotfoundComponent}
 ];
 
 @NgModule({

@@ -9,6 +9,9 @@ import { AgmCoreModule } from '@agm/core';
 import { RegistrationComponent } from './registration/registration.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { StoredetailComponent } from './customer/storedetail/storedetail.component';
+import { UserformComponent } from './customer/userform/userform.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { LoginComponent } from './login/login.component';
     HeaderComponent,
     MapComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    StoredetailComponent,
+    UserformComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,

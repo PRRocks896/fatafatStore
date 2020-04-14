@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { Utils } from '../shared/utils';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,9 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private titleService: Title) {
+    this.titleService.setTitle('Login' + Utils.getAppName());
+  }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({

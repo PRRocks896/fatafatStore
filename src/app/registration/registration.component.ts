@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, ControlContainer } from '@angular/forms'
+import { Title } from '@angular/platform-browser';
+
+import { Utils } from '../shared/utils';
 
 @Component({
   selector: 'app-registration',
@@ -10,7 +13,9 @@ export class RegistrationComponent implements OnInit {
 
   signUpForm:FormGroup;
 
-  constructor() { }
+  constructor(private titleService: Title) {
+    this.titleService.setTitle('Registration Retailer' + Utils.getAppName());
+  }
 
   ngOnInit(): void {
     this.signUpForm = new FormGroup({

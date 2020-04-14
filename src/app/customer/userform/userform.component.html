@@ -1,0 +1,74 @@
+<section class="user_form">
+    <div class="col-md-12"><h1>User Form</h1></div>
+    <div class="user-form-content">
+        
+        <form class="form" [formGroup]="userform" id="userForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    
+                    <div class="col-md-12">
+                        <div class="box-1">
+                            <label>YOUR ORDER*</label>
+                            <textarea id="w3mission" formControlName="orderdescription" rows="3" >
+                                
+                            </textarea>
+                            <div class="alert alert-danger" *ngIf="ValidateForm('orderdescription')">
+                                Please provide order detail
+                            </div>
+                        </div>
+                        <div class="box-1">
+                            <label>NAME*</label>
+                            <input type="text" formControlName="name" placeholder="" value="" required/>
+                            <div class="alert alert-danger" *ngIf="ValidateForm('name')">
+                                Please provide name
+                            </div>
+                        </div>
+                        <div class="flex-box">
+                            <div class="box-1">
+                                <label>WHATSAPP NO*</label>
+                                <input type="number" formControlName="number"  placeholder="" value="" required/>
+                                <div class="alert alert-danger" *ngIf="ValidateForm('number')">
+                                    Please provide number
+                                </div>
+                                <!-- <div class="col-md-2 get-otp-button">
+                                    <button type="button" class="btn btn-dark" (click)="onGetOtp()">Get OTP</button>
+                                </div> -->
+                            </div>
+                            <div class="box-1 box-2">
+                                <label>OTP*</label>
+                                <input type="text" formControlName="otp" placeholder="" value=""/>
+                                <div class="alert alert-danger" *ngIf="ValidateForm('otp')">
+                                    Please provide received otp
+                                </div>
+                                <!-- <div class="col-md-2 verify-otp-button">
+                                    <button type="button" class="btn btn-dark" (click)="onVerifyOtp()">Verify</button>
+                                </div> -->
+                            </div>
+                           
+                        </div>
+                        <div class="box-1">
+                            <label>YOUR ADDRESS*</label>
+                            <input type="text" formControlName="address" placeholder="" value="" required/>
+                            <div class="alert alert-danger" *ngIf="ValidateForm('address')">
+                                Please provide address
+                            </div>
+                        </div>
+                        <div class="box-1">
+                            <label>PINCODE*</label>
+                            <input type="text" formControlName="pincode"  placeholder="" value="" required/>
+                            <div class="alert alert-danger" *ngIf="ValidateForm('picode')">
+                                Please provide pincode
+                            </div>
+                        </div>
+                        <div class="box-1">
+                            <label>MARK YOUR LOCATION*</label>
+                            <input type="text" formControlName="location" placeholder="" value="" required/>
+                            <div class="alert alert-danger" *ngIf="ValidateForm('location')">
+                                Please provide pincode
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" [disabled]="!userform.valid" class="btnSubmit">Submit</button>
+        </form>
+    </div>
+</section>
