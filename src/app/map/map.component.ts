@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { google } from "google-maps";
+declare var google : google;
 
 @Component({
   selector: 'app-map',
@@ -10,11 +13,16 @@ export class MapComponent implements OnInit {
   latitude: number;
   longitude: number;
   zoom:number;
+  address: string;
+  geoCoder;
 
-  constructor() { }
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+  
+  constructor(private mapsAPILoader: MapsAPILoader,private ngZone: NgZone) { }
 
   ngOnInit(): void {
-    this.setCurrentLocation();
+    this.setCurrentLocation()
    }
 
    private setCurrentLocation() {
@@ -25,6 +33,12 @@ export class MapComponent implements OnInit {
         this.zoom = 15;
       });
     }
+  }
+
+  markerDragEnd($event: MouseEvent) {
+    this.latitude = $event.coords.lat;
+    this.longitude = $event.coords.lng;
+    console.log(this.latitude +" "+this.longitude);
   }
 
 }

@@ -11,11 +11,13 @@ import { Utils } from '../shared/utils';
 })
 export class RegistrationComponent implements OnInit {
 
+  latitude: number;
+  longitude: number;
+  zoom:number;
+
   signUpForm:FormGroup;
 
-  constructor(private titleService: Title) {
-    this.titleService.setTitle('Registration Retailer' + Utils.getAppName());
-  }
+  constructor() { }
 
   ngOnInit(): void {
     this.signUpForm = new FormGroup({
@@ -32,6 +34,7 @@ export class RegistrationComponent implements OnInit {
       'otp': new FormControl(''),
       'deliveryMedium': new FormControl('',)
     });
+    this.setCurrentLocation();
   }
 
   onSubmit() {
@@ -46,4 +49,20 @@ export class RegistrationComponent implements OnInit {
     console.log("In get otp");
   }
 
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 15;
+      });
+    }
+  }
+
+  markerDragEnd($event: MouseEvent) {
+    console.log(($event)['coords']);
+    // this.latitude = $event.coords.lat;
+    // this.longitude = $event.coords.lng;
+    // this.getAddress(this.latitude, this.longitude);
+  }
 }
