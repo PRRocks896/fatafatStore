@@ -20,4 +20,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
+  onRegister() {
+    this.router.navigate(['registration']);
+  }
+
 }
