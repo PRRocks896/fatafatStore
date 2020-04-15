@@ -12,6 +12,7 @@ export class MapComponent implements OnInit {
   latitude: number;
   longitude: number;
   zoom:number;
+  address: string = '';
   constructor(private mapService: MapService) { }
 
   ngOnInit(): void {
@@ -33,8 +34,8 @@ export class MapComponent implements OnInit {
     }
   }
 
-  getStoreList(address: any) {
-    this.mapService.getLatLongFromAddress(360006).subscribe((res: any) => {
+  getStoreList() {
+    this.mapService.getLatLongFromAddress(this.address).subscribe((res: any) => {
       console.log(res);
     }, err => {
       console.error(err);

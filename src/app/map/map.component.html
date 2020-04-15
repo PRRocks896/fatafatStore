@@ -1,8 +1,37 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 <agm-map 
 [latitude]="latitude" 
 [longitude]="longitude" 
 [zoom]="zoom" >
   <agm-marker 
   [latitude]="latitude" 
-  [longitude]="longitude"></agm-marker>
+  [longitude]="longitude">
+    <agm-info-window [disableAutoPan]="false" [isOpen]="true" #infoWindow>
+      <div class="close-cross">
+        <div class="text-box-map">
+          <img src="assets/images/maps-and-flags.png">
+          <P>PICKUP YOUR LOCALITY OR PINCODE TO ORDER</P>
+          <form class="form-inline">
+              <div class="form-group text-city mb-2">
+                <!-- <label for="inputPassword2" class="sr-only">Password</label> -->
+                <input type="text" [(ngModel)]="address" name="address" class="form-control" placeholder="" />
+              </div>
+              <button class="btn btn-primary mb-2" [disabled]="address.length == 0" (click)="getStoreList()">Submit</button>
+          </form>
+        </div>
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+          <div class="toast-header">
+            <strong class="mr-auto">Store</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="toast-body store-border-bottom">
+            Hello, world! This is a toast message.<br>
+            13/327 near kalyanpura station
+          </div>
+        </div>
+      </div>
+    </agm-info-window>
+  </agm-marker>
 </agm-map>
