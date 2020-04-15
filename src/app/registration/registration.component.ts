@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, ControlContainer } from '@angular/forms'
+import { FormGroup, FormControl, ControlContainer, Validators } from '@angular/forms'
 import { Title } from '@angular/platform-browser';
 
 import { Utils } from '../shared/utils';
+import { MapService } from '../map/map.service';
 
 @Component({
   selector: 'app-registration',
@@ -12,12 +13,16 @@ import { Utils } from '../shared/utils';
 export class RegistrationComponent implements OnInit {
 
   signUpForm:FormGroup;
-
-  constructor(private titleService: Title) {
+  latitude: number;
+  longitude: number;
+  zoom:number;
+  address: any = '';
+  constructor(private titleService: Title, private mapService: MapService) {
     this.titleService.setTitle('Registration Retailer' + Utils.getAppName());
   }
 
   ngOnInit(): void {
+    this.setCurrentLocation();
     this.signUpForm = new FormGroup({
       'shopName': new FormControl('',),
       'password': new FormControl('',),
@@ -28,10 +33,21 @@ export class RegistrationComponent implements OnInit {
       'state': new FormControl('',),
       'pincode': new FormControl('',),
       'email': new FormControl('',),
+      'location': new FormControl('', Validators.required),
       'number': new FormControl(''),
       'otp': new FormControl(''),
       'deliveryMedium': new FormControl('',)
     });
+  }
+
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 15;
+      });
+    }
   }
 
   onSubmit() {
@@ -44,6 +60,15 @@ export class RegistrationComponent implements OnInit {
 
   onGetOtp() {
     console.log("In get otp");
+  }
+
+  getStoreAddress() {
+    console.log(this.address);
+    this.mapService.getLatLongFromAddress(this.address).subscribe((res: any) => {
+      console.log(res);
+    }, err => {
+      console.error(err);
+    })
   }
 
 }
