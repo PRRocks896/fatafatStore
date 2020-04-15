@@ -49,12 +49,34 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="email">Email</label>
+                                <label for="email">Email<i class="astrik">*</i></label>
                                 <input type="email" class="form-control" formControlName="email" placeholder="Email"> <br>
                             </div>
                             <div class="col-md-12">
-                                <label for="deliveryMedium">Medium/Time for Delivery<i class="astrik">*</i></label>
-                                <input type="text" class="form-control" formControlName="deliveryMedium" placeholder="For e.g home delivery within 2 hours."> <br>
+                                <div class="row">
+                                <div class="col-md-8">
+                                    <label for="email">Shop Location<i class="astrik">*</i></label>
+                                    <input type="text" [(ngModel)]="address" class="form-control" formControlName="location" placeholder="Type your locality" required/> <br>
+                                </div>
+                                <div class="col-md-4 get-otp-button">
+                                    <button type="button" class="btn btn-dark" [disabled]="address.length == 0" (click)="getStoreAddress()">Find Locality</button>
+                                </div>
+                                </div>
+                                <div>
+                                    <agm-map 
+                                        [latitude]="latitude" 
+                                        [longitude]="longitude" 
+                                        [zoom]="zoom" >
+                                        <agm-marker 
+                                            [latitude]="latitude" 
+                                            [longitude]="longitude">
+                                        </agm-marker>
+                                    </agm-map>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="deliveryMedium">Medium of Delivery<i class="astrik">*</i></label>
+                                <input type="text" class="form-control" formControlName="deliveryMedium" placeholder="Delivery Medium"> <br>
                             </div>
                             <div class="col-md-12"></div>
                         </div>
