@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { StoredetailComponent } from './customer/storedetail/storedetail.component';
 import { UserformComponent } from './customer/userform/userform.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { RetailerComponent } from './retailer/retailer.component';
 
 const routes: Routes = [
   { path: '', component: MapComponent },
@@ -14,7 +15,9 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'customer/storedetail', component: StoredetailComponent },
   { path: 'customer/userform', component: UserformComponent},
-  { path: '**', component: NotfoundComponent}
+  { path: '**', component: NotfoundComponent},
+  { path: 'retailer', component: RetailerComponent },
+  { path: 'registration', component: RegistrationComponent }
 ];
 
 @NgModule({
