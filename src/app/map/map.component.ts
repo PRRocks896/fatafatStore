@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MapComponent implements OnInit {
 
-  title: string = 'AGM project';
   latitude: number;
   longitude: number;
   zoom:number;
