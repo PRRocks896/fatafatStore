@@ -21,8 +21,11 @@ export class RegistrationComponent implements OnInit {
     this.signUpForm = new FormGroup({
       'shopName': new FormControl('',),
       'password': new FormControl('',),
-      'ownerName': new FormControl('',),
-      'shopAddress': new FormControl('',),
+      'firstName': new FormControl('',),
+      'lastName': new FormControl('',),
+      'addressLine1': new FormControl('',),
+      'city': new FormControl('',),
+      'state': new FormControl('',),
       'pincode': new FormControl('',),
       'email': new FormControl('',),
       'number': new FormControl(''),
