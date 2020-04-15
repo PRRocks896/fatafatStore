@@ -28,8 +28,4 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['retailer']);
   }
 
-  onRegister() {
-    this.router.navigate(['registration']);
-  }
-
 }

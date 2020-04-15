@@ -12,11 +12,11 @@ const routes: Routes = [
   { path: '', component: MapComponent },
   { path: 'map', component: MapComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'retailer', component: RetailerComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'customer/storedetail', component: StoredetailComponent },
   { path: 'customer/userform', component: UserformComponent},
   { path: '**', component: NotfoundComponent},
-  { path: 'retailer', component: RetailerComponent },
   { path: 'registration', component: RegistrationComponent }
 ];
 
