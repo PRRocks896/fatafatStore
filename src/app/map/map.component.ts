@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MapService } from './map.service';
 
 @Component({
   selector: 'app-map',
@@ -11,11 +12,15 @@ export class MapComponent implements OnInit {
   latitude: number;
   longitude: number;
   zoom:number;
-
-  constructor() { }
+  constructor(private mapService: MapService) { }
 
   ngOnInit(): void {
-    this.setCurrentLocation();
+    this.setCurrentLocation(); 
+    this.mapService.getLatLongFromAddress(360006).subscribe((res: any) => {
+      console.log(res);
+    }, err => {
+      console.error(err);
+    }) 
    }
 
    private setCurrentLocation() {
@@ -26,6 +31,14 @@ export class MapComponent implements OnInit {
         this.zoom = 15;
       });
     }
+  }
+
+  getStoreList(address: any) {
+    this.mapService.getLatLongFromAddress(360006).subscribe((res: any) => {
+      console.log(res);
+    }, err => {
+      console.error(err);
+    })
   }
 
 }
