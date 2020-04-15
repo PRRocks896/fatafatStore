@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    console.log(this.loginForm.value);
+    this.router.navigate(['retailer']);
   }
 
   onRegister() {

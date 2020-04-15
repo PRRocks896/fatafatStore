@@ -1,0 +1,17 @@
+.heading-container {
+    text-align: center;
+    padding-top: 8%;
+}
+
+.upload-container, .or-container, .inventory-list {
+    text-align: center;
+    padding-top: 6%;
+}
+
+.upload-buttons, .ok-button {
+    text-align: center;
+}
+
+.inputfile {
+    visibility: hidden;
+}

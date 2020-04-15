@@ -9,6 +9,7 @@ import { AgmCoreModule } from '@agm/core';
 import { RegistrationComponent } from './registration/registration.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { RetailerComponent } from './retailer/retailer.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { LoginComponent } from './login/login.component';
     HeaderComponent,
     MapComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    RetailerComponent
   ],
   imports: [
     BrowserModule,
