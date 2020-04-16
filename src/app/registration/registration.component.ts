@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 
 import { Utils } from '../shared/utils';
 import { MapService } from '../map/map.service';
+import { RegisterationService } from './registeration.service';
 
 @Component({
   selector: 'app-registration',
@@ -11,39 +12,34 @@ import { MapService } from '../map/map.service';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-
-  latitude: number;
-  longitude: number;
-  zoom:number;
-
   signUpForm:FormGroup;
-
-  constructor() { }
 
   latitude: number;
   longitude: number;
   zoom:number;
   address: any = '';
-  constructor(private titleService: Title, private mapService: MapService) {
+  constructor(private titleService: Title, private mapService: MapService,
+    private registrationService: RegisterationService) {
     this.titleService.setTitle('Registration Retailer' + Utils.getAppName());
   }
 
   ngOnInit(): void {
     this.setCurrentLocation();
     this.signUpForm = new FormGroup({
-      'shopName': new FormControl('',),
-      'password': new FormControl('',),
-      'firstName': new FormControl('',),
-      'lastName': new FormControl('',),
-      'addressLine1': new FormControl('',),
-      'city': new FormControl('',),
-      'state': new FormControl('',),
-      'pincode': new FormControl('',),
-      'email': new FormControl('',),
-      'location': new FormControl('', Validators.required),
-      'number': new FormControl(''),
+      'StoreName': new FormControl('',),
+      'Password': new FormControl('',),
+      'FirstName': new FormControl('',),
+      'LastName': new FormControl('',),
+      'Address': new FormControl('',),
+      'Address1': new FormControl('',),
+      'City': new FormControl('',),
+      'State': new FormControl('',),
+      'Pincode': new FormControl('',),
+      'Email': new FormControl('',),
+      'Location': new FormControl('', Validators.required),
+      'Phonenumber': new FormControl(''),
       'otp': new FormControl(''),
-      'deliveryMedium': new FormControl('',)
+      'DeliveryOptions': new FormControl('',)
     });
     this.setCurrentLocation();
   }
@@ -60,6 +56,11 @@ export class RegistrationComponent implements OnInit {
 
   onSubmit() {
     console.log(this.signUpForm.value);
+    this.registrationService.addNewRetailer(this.signUpForm.value).subscribe((res: any) => {
+      console.log(res);
+    }, (err: any) => {
+      console.error(err);
+    })
   }
 
   onVerifyOtp() {
@@ -70,15 +71,6 @@ export class RegistrationComponent implements OnInit {
     console.log("In get otp");
   }
 
-  private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 15;
-      });
-    }
-  }
 
   markerDragEnd($event: MouseEvent) {
     console.log(($event)['coords']);
