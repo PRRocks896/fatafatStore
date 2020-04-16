@@ -35,6 +35,12 @@ agm-map {
     text-align: center;
 }
 
+.btn {
+    background-color: #cc0202;
+    border-color: transparent;
+    color: #fec13d  ;
+}
+
 agm-map {
     height: 430px;
 }
