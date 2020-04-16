@@ -2,10 +2,9 @@ import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core'
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { google } from "google-maps";
 import { CommonService } from '../shared/common.service';
-declare var google : google;
-
-import { Component, OnInit } from '@angular/core';
 import { MapService } from './map.service';
+
+declare var google : google;
 
 @Component({
   selector: 'app-map',
@@ -25,20 +24,10 @@ export class MapComponent implements OnInit {
   public searchElementRef: ElementRef;
   
   constructor(private mapsAPILoader: MapsAPILoader,private ngZone: NgZone,
-    private commonService: CommonService) { }
+    private commonService: CommonService, private mapService: MapService) { }
 
   ngOnInit(): void {
-    this.setCurrentLocation()
-  address: string = '';
-  constructor(private mapService: MapService) { }
-
-  ngOnInit(): void {
-    this.setCurrentLocation(); 
-    this.mapService.getLatLongFromAddress(360006).subscribe((res: any) => {
-      console.log(res);
-    }, err => {
-      console.error(err);
-    }) 
+    this.setCurrentLocation() 
    }
 
    private setCurrentLocation() {
@@ -53,11 +42,12 @@ export class MapComponent implements OnInit {
 
   getStoreList() {
     this.commonService.getLatLongFromAddress(this.address).subscribe((res: any) => {
-    this.mapService.getLatLongFromAddress(this.address).subscribe((res: any) => {
-      console.log(res);
-    }, err => {
-      console.error(err);
-    })
+      this.mapService.getLatLongFromAddress(this.address).subscribe((res: any) => {
+        console.log(res);
+      }, err => {
+        console.error(err);
+      })
+    });  
   }
 
   markerDragEnd($event: MouseEvent) {
@@ -65,5 +55,4 @@ export class MapComponent implements OnInit {
     this.longitude = $event.coords.lng;
     console.log(this.latitude +" "+this.longitude);
   }
-
 }

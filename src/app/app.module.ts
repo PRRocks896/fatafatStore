@@ -14,7 +14,6 @@ import { StoredetailComponent } from './customer/storedetail/storedetail.compone
 import { UserformComponent } from './customer/userform/userform.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { RetailerComponent } from './retailer/retailer.component';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
