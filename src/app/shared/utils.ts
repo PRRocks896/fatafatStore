@@ -4,6 +4,13 @@ export class Utils {
     static getDefaultUrl() {
         return 'http://fatafatapi.epsilonium.com/api/v1.0/';
       }
+    
+      static getGoogleMapKey() {
+        return 'AIzaSyDXq-ZCLsJK-_DXcDZrEXey2VKYgp0lJs4';
+        // return 'AIzaSyBvOSh9INnA_vm_KvoSo628qoVexW3iE-o';
+        // return 'AIzaSyBvdfdFYbmQJPRAebQh-bO0sYWj8X74LEU';
+        // return 'AIzaSyDXq-ZCLsJK-_DXcDZrEXey2VKYgp0lJs4';
+      }
 
     static getAPIBasic() {
       return {

@@ -1,3 +1,52 @@
 agm-map {
     height: 600px;
 }
+
+.map-parents{
+    position: relative;
+}
+.map-text{
+	
+}
+.close-cross{
+    margin: 3em;
+	padding: 2em;
+	box-sizing: border-box;
+	background: #fff;
+	/* box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.4); */
+	border-radius: 8px;
+	max-width: 100%;
+	margin: auto;
+	/* position: absolute; */
+    top: 130px;
+    left: 9px;
+}
+.text-box-map{
+	padding: 15px;
+	BACKGROUND: #fff;
+	border-radius: .25rem;
+	margin-bottom: 15px;
+}
+.text-box-map p{
+	font-size: 12px;
+    color: #8f8c8c;
+    display: inline-block;
+}
+
+.text-city{
+	margin-right: 20px;
+}
+.store-border-bottom{
+	border-bottom: 1px solid #e1dfdf;
+}
+/**************end-map-location **************/
+
+@media screen and (max-width: 400px) {
+.flex-box {
+	display: block;
+}
+.flex-box .box-2 {
+	margin-left: 0px;
+	width: 100%;
+}
+}

@@ -4,6 +4,9 @@ import { google } from "google-maps";
 import { CommonService } from '../shared/common.service';
 declare var google : google;
 
+import { Component, OnInit } from '@angular/core';
+import { MapService } from './map.service';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -11,6 +14,7 @@ declare var google : google;
 })
 export class MapComponent implements OnInit {
 
+  title: string = 'AGM project';
   latitude: number;
   longitude: number;
   zoom:number;
@@ -25,6 +29,16 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this.setCurrentLocation()
+  address: string = '';
+  constructor(private mapService: MapService) { }
+
+  ngOnInit(): void {
+    this.setCurrentLocation(); 
+    this.mapService.getLatLongFromAddress(360006).subscribe((res: any) => {
+      console.log(res);
+    }, err => {
+      console.error(err);
+    }) 
    }
 
    private setCurrentLocation() {
@@ -39,6 +53,7 @@ export class MapComponent implements OnInit {
 
   getStoreList() {
     this.commonService.getLatLongFromAddress(this.address).subscribe((res: any) => {
+    this.mapService.getLatLongFromAddress(this.address).subscribe((res: any) => {
       console.log(res);
     }, err => {
       console.error(err);
