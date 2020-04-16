@@ -25,10 +25,6 @@ export class Utils {
       return `Bearer ${localStorage.getItem('token')}`;
     }
 
-    static getGoogleMapKey() {
-      return 'AIzaSyDXq-ZCLsJK-_DXcDZrEXey2VKYgp0lJs4';
-    }
-
       static numericOnly(event) { // restrict e,+,-,E characters in  input type number
         const charCode = (event.which) ? event.which : event.keyCode;
         // console.log(charCode);

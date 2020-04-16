@@ -18,11 +18,6 @@ export class RegistrationComponent implements OnInit {
 
   signUpForm:FormGroup;
 
-  constructor() { }
-
-  latitude: number;
-  longitude: number;
-  zoom:number;
   address: any = '';
   constructor(private titleService: Title, private mapService: MapService) {
     this.titleService.setTitle('Registration Retailer' + Utils.getAppName());
@@ -70,15 +65,6 @@ export class RegistrationComponent implements OnInit {
     console.log("In get otp");
   }
 
-  private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 15;
-      });
-    }
-  }
 
   markerDragEnd($event: MouseEvent) {
     console.log(($event)['coords']);
