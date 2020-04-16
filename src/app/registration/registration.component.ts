@@ -17,6 +17,7 @@ export class RegistrationComponent implements OnInit {
   latitude: number;
   longitude: number;
   zoom:number;
+  
   address: any = '';
   constructor(private titleService: Title, private mapService: MapService,
     private registrationService: RegisterationService) {
