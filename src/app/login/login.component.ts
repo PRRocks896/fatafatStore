@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Utils } from '../shared/utils';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private router:Router, private titleService: Title) {
+  constructor(private router:Router, private titleService: Title, private loginService: LoginService) {
     this.titleService.setTitle('Login' + Utils.getAppName());
   }
 
@@ -25,7 +26,17 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    this.router.navigate(['retailer']);
+    console.log(this.loginForm.value);
+    let body = new FormData();
+    body.append('Email', this.loginForm.value.email);
+    body.append('Password', this.loginForm.value.password);
+    this.loginService.doLogin(body).subscribe((res: any) => {
+      console.log(res);
+      this.router.navigate(['retailer']);
+    }, (err: any) => {
+      console.error(err);
+    })
+    
   }
 
 }
