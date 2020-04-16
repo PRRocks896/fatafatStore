@@ -1,7 +1,7 @@
 import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { google } from "google-maps";
-import { CommonService } from '../shared/Common.service';
+import { CommonService } from '../shared/common.service';
 declare var google : google;
 
 @Component({
