@@ -26,11 +26,25 @@
                                 <input type="text" class="form-control" formControlName="state" placeholder="State"> <br>
                                 <input type="number" class="form-control" formControlName="pincode" placeholder="Pincode"> <br>
                             </div>
-                            <!-- <div class="col-md-12">
-                                <label for="picode">Pincode<i class="astrik">*</i></label>
-                                <input type="number" class="form-control" formControlName="pincode" placeholder="Pincode"> <br>
-                            </div> -->
+                            <div class="col-md-12">
+                                <label>Move marker to set location.<i class="astrik">*</i></label>
+                                <div class="card">
+                                    <div class="card-body map-container">
+                                        <agm-map 
+                                            [latitude]="latitude" 
+                                            [longitude]="longitude" 
+                                            [zoom]="zoom" >
+                                            <agm-marker 
+                                            [latitude]="latitude" 
+                                            [longitude]="longitude"
+                                            [markerDraggable]="true"
+                                            (dragEnd)="markerDragEnd($event)"></agm-marker>
+                                        </agm-map>
+                                    </div>
+                                  </div>
+                            </div>
                         </div>
+                        <br>
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="number">WhatsApp Number<i class="astrik">*</i></label>
