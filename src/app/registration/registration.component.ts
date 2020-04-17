@@ -17,7 +17,8 @@ export class RegistrationComponent implements OnInit {
   latitude: number;
   longitude: number;
   zoom:number;
-  
+  locationError: String = '';
+
   address: any = '';
   constructor(private titleService: Title, private mapService: MapService,
     private registrationService: RegisterationService) {
@@ -38,6 +39,8 @@ export class RegistrationComponent implements OnInit {
       'Pincode': new FormControl('',),
       'Email': new FormControl('',),
       'Location': new FormControl('', Validators.required),
+      'Latitude': new FormControl('',),
+      'Longitude': new FormControl('',),
       'Phonenumber': new FormControl(''),
       'otp': new FormControl(''),
       'DeliveryOptions': new FormControl('',)
@@ -80,9 +83,19 @@ export class RegistrationComponent implements OnInit {
     // this.getAddress(this.latitude, this.longitude);
   }
   getStoreAddress() {
-    console.log(this.address);
+    // console.log(this.address);
     this.mapService.getLatLongFromAddress(this.address).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
+      if(res['results'].length > 0) {
+        this.locationError = '';
+        const detail = res['results'][0];
+        this.latitude = detail['geometry']['location']['lat'];
+        this.longitude = detail['geometry']['location']['lng'];
+        console.log(this.latitude);
+        console.log(this.longitude);
+      } else {
+        this.locationError = 'Location not found'
+      }
     }, err => {
       console.error(err);
     })

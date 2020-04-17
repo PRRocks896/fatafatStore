@@ -6,7 +6,7 @@ export class Utils {
       }
     
       static getGoogleMapKey() {
-        return 'AIzaSyDXq-ZCLsJK-_DXcDZrEXey2VKYgp0lJs4';
+        return 'AIzaSyAHPDpyiI1qbRxYDjQguNnTvcHhK-t7y7E';
         // return 'AIzaSyBvOSh9INnA_vm_KvoSo628qoVexW3iE-o';
         // return 'AIzaSyBvdfdFYbmQJPRAebQh-bO0sYWj8X74LEU';
         // return 'AIzaSyDXq-ZCLsJK-_DXcDZrEXey2VKYgp0lJs4';

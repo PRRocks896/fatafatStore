@@ -28,23 +28,7 @@
                                 <input type="text" class="form-control" formControlName="State" placeholder="State"> <br>
                                 <input type="number" class="form-control" formControlName="Pincode" placeholder="Pincode"> <br>
                             </div>
-                            <div class="col-md-12">
-                                <label>Move marker to set location.<i class="astrik">*</i></label>
-                                <div class="card">
-                                    <div class="card-body map-container">
-                                        <agm-map 
-                                            [latitude]="latitude" 
-                                            [longitude]="longitude" 
-                                            [zoom]="zoom" >
-                                            <agm-marker 
-                                            [latitude]="latitude" 
-                                            [longitude]="longitude"
-                                            [markerDraggable]="true"
-                                            (dragEnd)="markerDragEnd($event)"></agm-marker>
-                                        </agm-map>
-                                    </div>
-                                  </div>
-                            </div>
+                            
                         </div>
                         <br>
                         <div class="row">
@@ -73,6 +57,9 @@
                                 <div class="col-md-8">
                                     <label for="email">Shop Location<i class="astrik">*</i></label>
                                     <input type="text" [(ngModel)]="address" class="form-control" formControlName="Location" placeholder="Type your locality" required/> <br>
+                                    <div *ngIf="locationError.length > 0">
+                                        <span>{{locationError}}</span>
+                                    </div>
                                 </div>
                                 <div class="col-md-4 get-otp-button">
                                     <button type="button" class="btn btn-dark" [disabled]="address.length == 0" (click)="getStoreAddress()">Find Locality</button>
@@ -89,6 +76,23 @@
                                         </agm-marker>
                                     </agm-map>
                                 </div> -->
+                            </div>
+                            <div class="col-md-12">
+                                <label>Move marker to set location.<i class="astrik">*</i></label>
+                                <div class="card">
+                                    <div class="card-body map-container">
+                                        <agm-map 
+                                            [latitude]="latitude" 
+                                            [longitude]="longitude" 
+                                            [zoom]="zoom" >
+                                            <agm-marker 
+                                            [latitude]="latitude" 
+                                            [longitude]="longitude"
+                                            [markerDraggable]="true"
+                                            (dragEnd)="markerDragEnd($event)"></agm-marker>
+                                        </agm-map>
+                                    </div>
+                                  </div>
                             </div>
                             <div class="col-md-12">
                                 <label for="deliveryMedium">Medium of Delivery<i class="astrik">*</i></label>

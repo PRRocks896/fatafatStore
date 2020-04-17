@@ -8,6 +8,7 @@ import { Utils } from '../shared/utils';
 export class CommonService {
 
   header = new HttpHeaders({
+    'Access-Control-Allow-Headers': 'x-auth, content-type',
     'Content-Type': 'application/x-www-form-urlencoded',
     'username': Utils.getAPIBasic().username,
     'password': Utils.getAPIBasic().password,
@@ -18,13 +19,13 @@ export class CommonService {
   getToken() {
       let body = new FormData();
       body.append('grant_type', Utils.getAPIBasic().grant_type);
-      return this.http.post(Utils.getDefaultUrl() + 'token', body, {headers: this.header});
+      return this.http.post(Utils.getDefaultUrl() + 'token', body, {headers: this.header, withCredentials: true});
   }
 
   url = 'https://maps.googleapis.com/maps/api/geocode/json?';
 
   getLatLongFromAddress(address) {
-    console.log(this.url + `address=${address}&key=${Utils.getGoogleMapKey()}`)
+    // console.log(this.url + `address=${address}&key=${Utils.getGoogleMapKey()}`)
     return this.http.get(this.url + `address=${address}&key=${Utils.getGoogleMapKey()}`);
   }
 }
