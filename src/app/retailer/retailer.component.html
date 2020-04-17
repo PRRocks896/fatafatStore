@@ -12,10 +12,19 @@
     </div>
     <div class="row upload-buttons">
         <div class="col-md-12">
-            <input type="file" id="img" class="inputfile" name="img" accept="image/*">
+            <input type="file" id="img" class="inputfile" name="img" accept="image/*" (change)="onSelectFile($event)">
             <label for="img"><i class="fa fa-paperclip fa-3x" aria-hidden="true" style="color:#fec13d;"></i></label>
             &nbsp;&nbsp;
             <i class="fa fa-camera fa-3x" aria-hidden="true" style="color:#fec13d;"></i>
+        </div>
+    </div>
+    <div class="row image-container" *ngIf="edited">
+        <div class="col-md-12 image-preview">
+            <img [src]="url" id="single-image">
+        </div>
+        <div class="col-md-12 submit-image">
+            <br>
+            <button class="btn btn-dark">Upload Image</button>
         </div>
     </div>
     <div class="row or-container">
