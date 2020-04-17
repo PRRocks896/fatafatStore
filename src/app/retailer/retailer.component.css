@@ -21,3 +21,12 @@
     border-color: transparent;
     color: #fec13d  ;
 }
+
+.image-preview,.image-container {
+    text-align: center;
+}
+
+#single-image {
+    height: 200px;
+    width: 200px;
+}

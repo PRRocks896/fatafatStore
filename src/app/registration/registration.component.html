@@ -1,123 +1,91 @@
 <div class="container-xl registration-container">
     <h6 id="formHeading">Registration Form</h6>
     <form [formGroup]="signUpForm" id="registrationForm" (ngSubmit)="onSubmit()">
-    <div class="card card-container">
-        <div class="card-body form-card-body">
-            
-                <div class="container">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="shopName">Shop Name<i class="astrik">*</i></label>
-                                <input type="text" class="form-control" formControlName="StoreName" placeholder="Shop Name" required> <br>
-                            </div>
-                            <div class="col-md-12">
-                                <label for="password">Password<i class="astrik">*</i></label>
-
-                                <input type="password" class="form-control" formControlName="Password" placeholder="Password"> <br>
-                            </div>
-
-                                <!-- <input type="password" class="form-control" formControlName="Password" placeholder="Password" required> <br>
-                            </div> -->
-
-                            <div class="col-md-12">
-                                <label>Shop Owner Details<i class="astrik">*</i></label>
-                                <input type="text" class="form-control" formControlName="FirstName" placeholder="First Name" required> <br>
-                                <input type="text" class="form-control" formControlName="LastName" placeholder="Last Name" required> <br>
-                            </div>
-                            <div class="col-md-12">
-                                <label>Shop Address<i class="astrik">*</i></label>
-                                <input type="text" class="form-control" formControlName="Address" placeholder="Address Line-1"> <br>
-                                <input type="text" class="form-control" formControlName="Address1" placeholder="Address Line-2"> <br>
-                                <input type="text" class="form-control" formControlName="City" placeholder="City"> <br>
-                                <input type="text" class="form-control" formControlName="State" placeholder="State"> <br>
-                                <input type="number" class="form-control" formControlName="Pincode" placeholder="Pincode"> <br>
-                            </div>
-                            
+        <div class="card card-container">
+            <div class="card-body form-card-body">
+                <div class="form-group form-container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="shopName">Shop Name<i class="astrik">*</i></label>
+                            <input type="text" class="form-control" formControlName="StoreName" placeholder="Shop Name" required> <br>
                         </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="number">WhatsApp Number<i class="astrik">*</i></label>
-                                <input type="number" class="form-control" formControlName="Phonenumber" placeholder="Number"> <br>
-                            </div>
-                            <!-- <div class="col-md-2 get-otp-button">
-                                <button type="button" class="btn btn-dark" (click)="onGetOtp()">Get OTP</button>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="otp">OTP<i class="astrik">*</i></label>
-                                <input type="password" class="form-control" formControlName="otp" placeholder="OTP"> <br>
-                            </div>
-                            <div class="col-md-2 verify-otp-button">
-                                <button type="button" class="btn btn-dark" (click)="onVerifyOtp()">Verify</button>
-                            </div> -->
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Shop Owner Details<i class="astrik">*</i></label>
+                            <input type="text" class="form-control" formControlName="FirstName" placeholder="First Name" required> <br>
+                            <input type="text" class="form-control" formControlName="LastName" placeholder="Last Name" required> <br>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <!-- <label for="email">Email</label>
-                                <input type="email" class="form-control" formControlName="email" placeholder="Email"> <br> -->
-                                <label for="email">Email<i class="astrik">*</i></label>
-                                <input type="email" class="form-control" formControlName="Email" placeholder="Email" email/> <br>
-                            </div>
-                            <!-- <div class="col-md-12">
-                                <div class="row">
-                                <div class="col-md-8">
-                                    <label for="email">Shop Location<i class="astrik">*</i></label>
-                                    <input type="text" [(ngModel)]="address" class="form-control" formControlName="Location" placeholder="Type your locality" required/> <br>
-                                    <div *ngIf="locationError.length > 0">
-                                        <span>{{locationError}}</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 get-otp-button">
-                                    <button type="button" class="btn btn-dark" [disabled]="address.length == 0" (click)="getStoreAddress()">Find Locality</button>
-                                </div>
-                                </div>
-                                <div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Shop Address<i class="astrik">*</i></label>
+                            <input type="text" class="form-control" formControlName="Address" placeholder="Address Line-1"> <br>
+                            <input type="text" class="form-control" formControlName="Address1" placeholder="Address Line-2"> <br>
+                            <input type="text" class="form-control" formControlName="City" placeholder="City"> <br>
+                            <input type="text" class="form-control" formControlName="State" placeholder="State"> <br>
+                            <input type="number" class="form-control" formControlName="Pincode" placeholder="Pincode"> <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Move marker to set location.<i class="astrik">*</i></label>
+                            <div class="card">
+                                <div class="card-body map-container">
                                     <agm-map 
                                         [latitude]="latitude" 
                                         [longitude]="longitude" 
                                         [zoom]="zoom" >
                                         <agm-marker 
-                                            [latitude]="latitude" 
-                                            [longitude]="longitude">
-                                        </agm-marker>
+                                        [latitude]="latitude" 
+                                        [longitude]="longitude"
+                                        [markerDraggable]="true"
+                                        (dragEnd)="markerDragEnd($event)"></agm-marker>
                                     </agm-map>
                                 </div>
-                            </div> -->
-                            <div class="col-md-12">
-                                <label>Move marker to set location.<i class="astrik">*</i></label>
-                                <div class="card">
-                                    <div class="card-body map-container">
-                                        <agm-map 
-                                            [latitude]="latitude" 
-                                            [longitude]="longitude" 
-                                            [zoom]="zoom" >
-                                            <agm-marker 
-                                            [latitude]="latitude" 
-                                            [longitude]="longitude"
-                                            [markerDraggable]="true"
-                                            (dragEnd)="markerDragEnd($event)"></agm-marker>
-                                        </agm-map>
-                                    </div>
-                                  </div>
-                            </div>
-                            <div class="col-md-12">
-                                <label for="deliveryMedium">Medium of Delivery<i class="astrik">*</i></label>
-                                <input type="text" class="form-control" formControlName="DeliveryOptions" placeholder="For.Eg Home-Delivery in 2-Hrs "> <br>
-                            </div>
+                              </div>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="number">WhatsApp Number<i class="astrik">*</i></label>
+                            <input type="number" class="form-control" formControlName="Phonenumber" placeholder="Number"> <br>
+                        </div>
+                        <div class="col-md-2 get-otp-button">
+                            <button type="button" class="btn btn-dark" (click)="onGetOtp()">Get OTP</button>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="otp">OTP<i class="astrik">*</i></label>
+                            <input type="password" class="form-control" formControlName="otp" placeholder="OTP"> <br>
+                        </div>
+                        <div class="col-md-2 verify-otp-button">
+                            <button type="button" class="btn btn-dark" (click)="onVerifyOtp()">Verify</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="password">Password<i class="astrik">*</i></label>
+                            <input type="password" class="form-control" formControlName="Password" placeholder="Password" required> <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="deliveryMedium">Medium of Delivery<i class="astrik">*</i></label>
+                            <input type="text" class="form-control" formControlName="DeliveryOptions" placeholder="For.Eg Home-Delivery in 2-Hrs "> <br>
                         </div>
                         <div class="col-md-12"></div>
                     </div>
                 </div>
-
+            </div>
         </div>
-    </div>
-    <br>
-    <div class="row submit-button">
-        <div class="col-md-12">
-            <!--  [disabled]="!signUpForm.valid" -->
-            <button type="submit" class="btn btn-dark" form="registrationForm">CREATE MY ACCOUNT</button>
+        <br>
+        <div class="row submit-button">
+            <div class="col-md-12">
+                <button type="submit" [disabled]="!signUpForm.valid" class="btn btn-dark" form="registrationForm">CREATE MY ACCOUNT</button>
+            </div>
         </div>
-    </div>
     </form>
 </div>
