@@ -1,14 +1,17 @@
 agm-map {
     height: 300px;
 }
-
+.form-container {
+    padding-left: 3%;
+    padding-right: 3%;
+}
 
 .astrik {
     color: red;
 }
 
 .card-container {
-    height: 450px;
+    height: 490px;
 }
 
 .form-card-body {
