@@ -12,6 +12,7 @@ export class AppComponent {
   constructor(private commonService: CommonService) {
     this.commonService.getToken().subscribe((res: any) => {
       console.log(res);
+      localStorage.setItem('token', res['access_token']);
     },(err: any) => {
       console.error(err);
     })

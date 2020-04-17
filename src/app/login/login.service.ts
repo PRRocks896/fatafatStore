@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Utils } from '../shared/utils';
 
 @Injectable({
@@ -14,6 +14,13 @@ export class LoginService {
   constructor( private http: HttpClient) {}
 
   doLogin(body) {
-    return this.http.post(Utils.getDefaultUrl() + 'Account/Login', body, {headers: this.header});
+    const params = new HttpParams({
+      fromObject: {
+        Email: body.email,
+        Password: body.password,
+      }
+    });
+
+    return this.http.post(Utils.getDefaultUrl() + 'Account/Login', params , {headers: this.header});
   }
 }

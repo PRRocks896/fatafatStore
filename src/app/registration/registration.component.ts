@@ -5,6 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { Utils } from '../shared/utils';
 import { MapService } from '../map/map.service';
 import { RegisterationService } from './registeration.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -21,7 +22,7 @@ export class RegistrationComponent implements OnInit {
 
   address: any = '';
   constructor(private titleService: Title, private mapService: MapService,
-    private registrationService: RegisterationService) {
+    private registrationService: RegisterationService, private router: Router) {
     this.titleService.setTitle('Registration Retailer' + Utils.getAppName());
   }
 
@@ -51,17 +52,28 @@ export class RegistrationComponent implements OnInit {
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
+        
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         this.zoom = 15;
+        this.signUpForm.patchValue({Latitude: this.longitude});
+        this.signUpForm.patchValue({Longitude: this.longitude});
       });
     }
   }
 
   onSubmit() {
-    console.log(this.signUpForm.value);
+    // console.log(this.signUpForm.value);
     this.registrationService.addNewRetailer(this.signUpForm.value).subscribe((res: any) => {
       console.log(res);
+      if(res['errorcode'] == '0') {
+        this.signUpForm.reset();
+        alert(res['message']);
+        this.router.navigate(['/']);
+      } else {
+        
+        alert(res['message']);
+      }
     }, (err: any) => {
       console.error(err);
     })
@@ -78,8 +90,8 @@ export class RegistrationComponent implements OnInit {
 
   markerDragEnd($event: MouseEvent) {
     console.log(($event)['coords']);
-    // this.latitude = $event.coords.lat;
-    // this.longitude = $event.coords.lng;
+    this.latitude = $event['coords'].lat;
+    this.longitude = $event['coords'].lng;
     // this.getAddress(this.latitude, this.longitude);
   }
   getStoreAddress() {
