@@ -15,3 +15,9 @@
 .inputfile {
     visibility: hidden;
 }
+
+.btn {
+    background-color: #cc0202;
+    border-color: transparent;
+    color: #fec13d  ;
+}
