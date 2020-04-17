@@ -42,12 +42,12 @@ export class MapComponent implements OnInit {
 
   getStoreList() {
     this.commonService.getLatLongFromAddress(this.address).subscribe((res: any) => {
-      this.mapService.getLatLongFromAddress(this.address).subscribe((res: any) => {
+      // this.mapService.getLatLongFromAddress(this.address).subscribe((res: any) => {
         console.log(res);
       }, err => {
         console.error(err);
-      })
-    });  
+      });
+    // });  
   }
 
   markerDragEnd($event: MouseEvent) {

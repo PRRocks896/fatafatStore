@@ -61,10 +61,25 @@
                         </div>
                         <div class="box-1">
                             <label>MARK YOUR LOCATION*</label>
-                            <input type="text" formControlName="location" placeholder="" value="" required/>
+                            <input type="text" (keyup.enter)="getAddress()" [(ngModel)]="address" formControlName="location" placeholder="" value="" required/>
                             <div class="alert alert-danger" *ngIf="ValidateForm('location')">
-                                Please provide pincode
+                                Please provide location
                             </div>
+                            <div *ngIf="locationError.length > 0">
+                                <span>{{locationError}}</span>
+                            </div>
+                        </div>
+                        <div class="box-1">
+                            <agm-map 
+                                [latitude]="latitude" 
+                                [longitude]="longitude" 
+                                [zoom]="zoom" >
+                                <agm-marker 
+                                [latitude]="latitude" 
+                                [longitude]="longitude"
+                                [markerDraggable]="true"
+                                (dragEnd)="markerDragEnd($event)"></agm-marker>
+                            </agm-map>
                         </div>
                     </div>
                 </div>

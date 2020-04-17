@@ -27,9 +27,10 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     console.log(this.loginForm.value);
-    let body = new FormData();
-    body.append('Email', this.loginForm.value.email);
-    body.append('Password', this.loginForm.value.password);
+
+    let body = this.loginForm.value; // new FormData();
+    // body.append('Email', this.loginForm.value.email);
+    // body.append('Password', this.loginForm.value.password);
     this.loginService.doLogin(body).subscribe((res: any) => {
       console.log(res);
       this.router.navigate(['retailer']);
