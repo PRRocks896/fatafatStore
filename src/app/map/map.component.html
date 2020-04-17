@@ -1,4 +1,21 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+<div class="container-fluid">
+  <div class="form-group">
+    <label>Enter address</label>
+    <input type="text" class="form-control" name="address" [(ngModel)]="address" (keydown.enter)="getStoreList()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"/>
+  </div>
+  <agm-map 
+    [latitude]="latitude" 
+    [longitude]="longitude" 
+    [zoom]="zoom" >
+    <agm-marker 
+    [latitude]="latitude" 
+    [longitude]="longitude"
+    [markerDraggable]="true"
+    (dragEnd)="markerDragEnd($event)"></agm-marker>
+  </agm-map>
+</div>
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 <agm-map 
 [latitude]="latitude" 
 [longitude]="longitude" 
@@ -13,7 +30,7 @@
           <P>PICKUP YOUR LOCALITY OR PINCODE TO ORDER</P>
           <form class="form-inline">
               <div class="form-group text-city mb-2">
-                <!-- <label for="inputPassword2" class="sr-only">Password</label> -->
+                <label for="inputPassword2" class="sr-only">Password</label>
                 <input type="text" [(ngModel)]="address" name="address" class="form-control" placeholder="" />
               </div>
               <button class="btn btn-primary mb-2" [disabled]="address.length == 0" (click)="getStoreList()">Submit</button>
@@ -34,4 +51,4 @@
       </div>
     </agm-info-window>
   </agm-marker>
-</agm-map>
+</agm-map> -->

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,7 +14,6 @@ import { StoredetailComponent } from './customer/storedetail/storedetail.compone
 import { UserformComponent } from './customer/userform/userform.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { RetailerComponent } from './retailer/retailer.component';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [

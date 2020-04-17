@@ -14,6 +14,8 @@ agm-map {
 .form-card-body {
     padding-bottom: 0%;
     overflow-y: scroll;
+    padding-left: 1%;
+    padding-right: 1%;
 }
 
 .submit-button {
@@ -25,6 +27,14 @@ agm-map {
     padding-bottom: 3%;
 }
 
+.map-container {
+    padding: 0%;
+}
+
 #formHeading {
     text-align: center;
+}
+
+agm-map {
+    height: 430px;
 }
