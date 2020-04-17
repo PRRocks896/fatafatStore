@@ -34,7 +34,7 @@ import { RetailerComponent } from './retailer/retailer.component';
     HttpClientModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDXq-ZCLsJK-_DXcDZrEXey2VKYgp0lJs4',
+      apiKey: 'AIzaSyAHPDpyiI1qbRxYDjQguNnTvcHhK-t7y7E',
       libraries: ['places']
     }),
   ],
