@@ -63,10 +63,10 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log(this.signUpForm.value);
+    console.log(this.signUpForm.value);
     this.registrationService.addNewRetailer(this.signUpForm.value).subscribe((res: any) => {
       // console.log(res);
-      if(res['errorcode'] == '0') {
+      if(res['errorcode'] == '0')  {
         // this.signUpForm.reset();
         alert(res['message']);
         // this.router.navigate(['/']);
