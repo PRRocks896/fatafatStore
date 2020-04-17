@@ -6,10 +6,12 @@
 .upload-container, .or-container, .inventory-list {
     text-align: center;
     padding-top: 6%;
+    padding-bottom: 0%;
 }
 
 .upload-buttons, .ok-button {
     text-align: center;
+    padding-top: 0%;
 }
 
 .inputfile {
