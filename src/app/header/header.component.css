@@ -1,8 +1,13 @@
-.fatafat-heading {
+#fatafat-logo {
     padding-left: 0%;
+    height: 100%;
+    width: 100%;
 }
 
-
+#fatafat-verify {
+    height: 60px;
+    width: 60px;
+}
 .map-button {
     padding-left: 0%;
 }
@@ -12,3 +17,19 @@
     padding-top: 1%;
     padding-bottom: 1%;
 }
+
+.btn {
+    background-color: #cc0202;
+    border-color: transparent;
+    color: #fec13d;
+}
+
+a:link, a:visited {
+    color: blue ;
+    text-decoration: underline;
+    cursor: auto;
+  }
+  
+  a:link:active, a:visited:active {
+    color: blue;
+  }
