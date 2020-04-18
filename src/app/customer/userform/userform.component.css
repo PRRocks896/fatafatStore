@@ -1,6 +1,9 @@
 agm-map {
     height: 300px;
 }
+.addres {
+	margin-top: 3%;
+}
 .user_form {
 	padding-top: 30px;
 }

@@ -63,13 +63,13 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signUpForm.value);
+    // console.log(this.signUpForm.value);
     this.registrationService.addNewRetailer(this.signUpForm.value).subscribe((res: any) => {
       // console.log(res);
       if(res['errorcode'] == '0')  {
-        // this.signUpForm.reset();
+        this.signUpForm.reset();
         alert(res['message']);
-        // this.router.navigate(['/']);
+        this.router.navigate(['/']);
       } else {
         
         alert(res['message']);
@@ -92,6 +92,8 @@ export class RegistrationComponent implements OnInit {
     console.log(($event)['coords']);
     this.latitude = $event['coords'].lat;
     this.longitude = $event['coords'].lng;
+    this.signUpForm.patchValue({Latitude: this.longitude});
+    this.signUpForm.patchValue({Longitude: this.longitude});
     // this.getAddress(this.latitude, this.longitude);
   }
   getStoreAddress() {
@@ -105,6 +107,8 @@ export class RegistrationComponent implements OnInit {
         this.longitude = detail['geometry']['location']['lng'];
         console.log(this.latitude);
         console.log(this.longitude);
+        this.signUpForm.patchValue({Latitude: this.longitude});
+        this.signUpForm.patchValue({Longitude: this.longitude});
       } else {
         this.locationError = 'Location not found'
       }
