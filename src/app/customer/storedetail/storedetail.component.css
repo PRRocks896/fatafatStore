@@ -1,0 +1,53 @@
+/**************rk store **************/
+
+.main-store{
+    padding: 0px;
+   }
+   .rk-heading{
+       text-align: center;
+       margin-bottom: 25px;
+       padding: 15px 0px;
+       box-shadow: 0px 3px 10px #dedada;
+   
+   }
+   .stores-images{
+       height: 500px;
+       overflow-x: hidden;
+   
+   }
+   .main-store-img{
+       margin-bottom: 25px;
+   }
+   .product-img{
+       width: 100%;
+   }
+   .store-text-box{
+       padding: 0px 50px;
+       margin-top: 25px;
+       box-shadow: 0px -3px 10px #dedada;
+   }
+   .text-area-main{
+       padding: 25px 0px;
+   }
+   .text-area{
+       width: 100%;
+       text-indent: 11px;
+       border-radius: 20px;
+       border: 1px solid #000;
+       outline: none;
+       padding: 0px 5px;
+   }
+   .file {
+       visibility: hidden;
+       position: absolute;
+     }
+     .btn.btn-primary {
+       background-color: #007bff;
+       border-color: #007bff;
+       outline: none;
+       color: #fff;
+     }  
+   .file-broeser{
+       border: 1px solid #ced4da !important;
+     }
+   /**************end rk store **************/

@@ -16,52 +16,69 @@
                             </div>
                         </div>
                         <div class="box-1">
-                            <label>NAME*</label>
-                            <input type="text" formControlName="name" placeholder="" value="" required/>
-                            <div class="alert alert-danger" *ngIf="ValidateForm('name')">
-                                Please provide name
+                            <label>FIRST NAME*</label>
+                            <input type="text" formControlName="firstname" placeholder="" value="" required/>
+                            <div class="alert alert-danger" *ngIf="ValidateForm('firstname')">
+                                Please provide first name
+                            </div>
+                            <label>LAST NAME*</label>
+                            <input type="text" formControlName="lastname" placeholder="" value="" required/>
+                            <div class="alert alert-danger" *ngIf="ValidateForm('lastname')">
+                                Please provide last name
                             </div>
                         </div>
                         <div class="flex-box">
                             <div class="box-1">
                                 <label>WHATSAPP NO*</label>
-                                <input type="number" formControlName="number"  placeholder="" value="" required/>
-                                <div class="alert alert-danger" *ngIf="ValidateForm('number')">
+                                <input type="number" formControlName="phonenumber"  placeholder="" value="" required/>
+                                <div class="alert alert-danger" *ngIf="ValidateForm('phonenumber')">
                                     Please provide number
                                 </div>
                                 <!-- <div class="col-md-2 get-otp-button">
                                     <button type="button" class="btn btn-dark" (click)="onGetOtp()">Get OTP</button>
                                 </div> -->
                             </div>
-                            <div class="box-1 box-2">
+                            <!-- <div class="box-1 box-2">
                                 <label>OTP*</label>
                                 <input type="text" formControlName="otp" placeholder="" value=""/>
                                 <div class="alert alert-danger" *ngIf="ValidateForm('otp')">
                                     Please provide received otp
                                 </div>
-                                <!-- <div class="col-md-2 verify-otp-button">
+                                <div class="col-md-2 verify-otp-button">
                                     <button type="button" class="btn btn-dark" (click)="onVerifyOtp()">Verify</button>
-                                </div> -->
-                            </div>
+                                </div>
+                            </div> -->
                            
                         </div>
                         <div class="box-1">
                             <label>YOUR ADDRESS*</label>
-                            <input type="text" formControlName="address" placeholder="" value="" required/>
+                            <input type="text" formControlName="address" placeholder="Address" value="" required/>
                             <div class="alert alert-danger" *ngIf="ValidateForm('address')">
                                 Please provide address
+                            </div>
+                            <input type="text" class="addres" formControlName="address1" placeholder="Address1" value="" required/>
+                            <div class="alert alert-danger" *ngIf="ValidateForm('address1')">
+                                Please provide address1
+                            </div>
+                            <input type="text" class="addres" formControlName="city" placeholder="City" value="" required/>
+                            <div class="alert alert-danger" *ngIf="ValidateForm('city')">
+                                Please provide city
+                            </div>
+                            <input type="text" class="addres" formControlName="state" placeholder="State" value="" required/>
+                            <div class="alert alert-danger" *ngIf="ValidateForm('state')">
+                                Please provide state
                             </div>
                         </div>
                         <div class="box-1">
                             <label>PINCODE*</label>
                             <input type="text" formControlName="pincode"  placeholder="" value="" required/>
-                            <div class="alert alert-danger" *ngIf="ValidateForm('picode')">
+                            <div class="alert alert-danger" *ngIf="ValidateForm('pincode')">
                                 Please provide pincode
                             </div>
                         </div>
                         <div class="box-1">
                             <label>MARK YOUR LOCATION*</label>
-                            <input type="text" (keyup.enter)="getAddress()" [(ngModel)]="address" formControlName="location" placeholder="" value="" required/>
+                            <input type="text" (keyup)="getAddress()" [(ngModel)]="address" formControlName="location" placeholder="" value="" required/>
                             <div class="alert alert-danger" *ngIf="ValidateForm('location')">
                                 Please provide location
                             </div>

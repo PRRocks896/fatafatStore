@@ -17,6 +17,7 @@ export class RegisterationService {
     const params = new HttpParams({
       fromObject: {
         StoreName: body.StoreName,
+        StoreImage: 'abc.png',
         Password: body.Password,
         FirstName: body.FirstName,
         LastName: body.LastName,
@@ -29,11 +30,12 @@ export class RegisterationService {
         Location: body.Location,
         Latitude: body.Latitude,
         Longitude: body.Longitude,
-        InveroryTypeID: '',
+        InveroryTypeID: '1',
         Phonenumber: body.Phonenumber,
         DeliveryOptions: body.DeliveryOptions
       }
     });
+    console.log(params);
     return this.http.post(Utils.getDefaultUrl() + 'Account/Retailer', params, {headers: this.header});
   }
 }
