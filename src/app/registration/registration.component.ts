@@ -39,14 +39,13 @@ export class RegistrationComponent implements OnInit {
       'State': new FormControl('',),
       'Pincode': new FormControl('',),
       'Email': new FormControl('',),
-      'Location': new FormControl('', Validators.required),
       'Latitude': new FormControl('',),
       'Longitude': new FormControl('',),
+      // 'Location': new FormControl('', Validators.required),
       'Phonenumber': new FormControl(''),
       'otp': new FormControl(''),
       'DeliveryOptions': new FormControl('',)
     });
-    this.setCurrentLocation();
   }
 
   private setCurrentLocation() {
@@ -89,6 +88,8 @@ export class RegistrationComponent implements OnInit {
 
 
   markerDragEnd($event: MouseEvent) {
+    this.signUpForm.value['Location'] = ($event)['coords'];
+
     console.log(($event)['coords']);
     this.latitude = $event['coords'].lat;
     this.longitude = $event['coords'].lng;
