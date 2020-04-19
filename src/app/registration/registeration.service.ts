@@ -17,7 +17,7 @@ export class RegisterationService {
     const params = new HttpParams({
       fromObject: {
         StoreName: body.StoreName,
-        StoreImage: 'abc.png',
+        StoreImage: 'aa.jpg',
         Password: body.Password,
         FirstName: body.FirstName,
         LastName: body.LastName,
