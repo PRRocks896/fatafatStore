@@ -35,4 +35,8 @@ export class CommonService {
     // console.log(this.url + `address=${address}&key=${Utils.getGoogleMapKey()}`)
     return this.http.get(this.url + `address=${address}&key=${Utils.getGoogleMapKey()}`);
   }
+
+  getState() {
+    return this.http.get(this.url + `Common/State`, { headers: this.header});
+  }
 }
