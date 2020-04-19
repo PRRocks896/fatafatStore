@@ -23,6 +23,10 @@ export class Utils {
         grant_type: 'password'
       }
     }
+
+    static imageURLFront() {
+      return 'data:image/jpg;base64,';
+    }
     
     static getAPIToken() {
       // return `Bearer eGnF6VejDYpZXcg3qCKe_d4QpQn8RVVY_BJWwX79_8d71HGukkT6TggCPyWlVO5RvmvVJmSW2EwpTMMidxyjuplG1CRM4uInex78d0M9HgckEr8Qy7HDkzI1w6WaUrbuoQfgW7YdeajvidVe_T_hMnqMPYDqPH80BGdvJrWrcAopkegBc7QwJQ5ZvFTuVwVh`

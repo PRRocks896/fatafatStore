@@ -17,7 +17,6 @@ const routes: Routes = [
   { path: 'customer/storedetail', component: StoredetailComponent },
   { path: 'customer/userform', component: UserformComponent},
   { path: '**', component: NotfoundComponent},
-  { path: 'registration', component: RegistrationComponent }
 ];
 
 @NgModule({
