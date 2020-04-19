@@ -12,6 +12,19 @@
     [longitude]="longitude"
     [markerDraggable]="true"
     (dragEnd)="markerDragEnd($event)"></agm-marker>
+    <div class="retailer-pins" *ngFor="let retailer of retailerList">
+      <agm-marker
+      (markerClick)="openWindow()"
+      [latitude]="retailer.latitude" 
+      [longitude]= "retailer.longitude"
+      [iconUrl] = "iconUrl"
+      >
+      <agm-info-window>
+        <p>{{ retailer.shopName }}</p>
+        <a routerLink="customer/storedetail" routerLinkeActive="active">Visit Shop</a>
+      </agm-info-window>
+    </agm-marker>
+    </div>
   </agm-map>
 </div>
 

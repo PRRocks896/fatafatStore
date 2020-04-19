@@ -14,4 +14,9 @@ export class MapService {
     // console.log(this.url + `address=${address}&key=${Utils.getGoogleMapKey()}`)
     return this.http.get(this.url + `address=${address}&key=${Utils.getGoogleMapKey()}`);
   }
+
+  getNearbyRetailers() {
+    
+  }
+
 }
