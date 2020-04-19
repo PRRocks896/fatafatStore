@@ -11,6 +11,9 @@ export class Utils {
         // return 'AIzaSyBvdfdFYbmQJPRAebQh-bO0sYWj8X74LEU';
         // return 'AIzaSyDXq-ZCLsJK-_DXcDZrEXey2VKYgp0lJs4';
       }
+    static googleAPIKey() {
+      return 'https://maps.googleapis.com/maps/api/geocode/json?';
+    }
 
     static getAPIBasic() {
       return {

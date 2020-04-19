@@ -29,10 +29,14 @@ export class CommonService {
     return this.http.post(Utils.getDefaultUrl() + 'token', params, {headers: this.header});
   }
 
-  url = 'https://maps.googleapis.com/maps/api/geocode/json?';
+  url = Utils.getGoogleMapKey();
 
   getLatLongFromAddress(address) {
     // console.log(this.url + `address=${address}&key=${Utils.getGoogleMapKey()}`)
     return this.http.get(this.url + `address=${address}&key=${Utils.getGoogleMapKey()}`);
+  }
+
+  getState() {
+    return this.http.get(this.url + `Common/State`, { headers: this.header});
   }
 }
