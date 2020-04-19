@@ -19,6 +19,14 @@ export class MapComponent implements OnInit {
   zoom:number;
   address: string;
   geoCoder;
+  retailerList:any = [];
+  iconUrl = {
+    url: "../assets/images/icons-01.png",
+    scaledSize: {
+      width: 40,
+      height: 45
+    }
+  } 
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -27,7 +35,9 @@ export class MapComponent implements OnInit {
     private commonService: CommonService, private mapService: MapService) { }
 
   ngOnInit(): void {
-    this.setCurrentLocation() 
+    this.setCurrentLocation();
+    this.getAllRetailers();
+    console.log(this.retailerList);
    }
 
    private setCurrentLocation() {
@@ -38,6 +48,12 @@ export class MapComponent implements OnInit {
         this.zoom = 15;
       });
     }
+  }
+  private getAllRetailers() {
+    this.retailerList = [
+      {latitude:26.50201729081622 , longitude: 80.22127081534423, shopName: 'some-shop'},
+      {latitude:26.490379761806718 , longitude: 80.2207987465576, shopName: 'some-other-shop'},
+      {},];
   }
 
   getStoreList() {
@@ -54,5 +70,9 @@ export class MapComponent implements OnInit {
     this.latitude = $event.coords.lat;
     this.longitude = $event.coords.lng;
     console.log(this.latitude +" "+this.longitude);
+  }
+
+  openWindow() {
+    console.log("hello");
   }
 }
