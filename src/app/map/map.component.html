@@ -3,13 +3,14 @@
     <label>Enter address</label>
     <input type="text" class="form-control" name="address" [(ngModel)]="address" (keydown.enter)="getStoreList()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"/>
   </div>
-  <agm-map 
+  <agm-map
     [latitude]="latitude" 
     [longitude]="longitude" 
+    [disableDefaultUI]="false"
     [zoom]="zoom" >
     <agm-marker 
     [latitude]="latitude" 
-    [longitude]="longitude"
+    [longitude]="longitude" 
     [markerDraggable]="true"
     (dragEnd)="markerDragEnd($event)"></agm-marker>
   </agm-map>

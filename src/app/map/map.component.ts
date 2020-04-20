@@ -14,9 +14,9 @@ declare var google : google;
 export class MapComponent implements OnInit {
 
   title: string = 'AGM project';
-  latitude: number;
-  longitude: number;
-  zoom:number;
+  latitude = 23.0293504;
+  longitude = 72.5778432;
+  zoom = 15;
   address: string;
   geoCoder;
 
@@ -31,13 +31,18 @@ export class MapComponent implements OnInit {
    }
 
    private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 15;
-      });
-    }
+    // if ('geolocation' in navigator) {
+    //   navigator.geolocation.getCurrentPosition((position) => {
+    //     console.log(position);
+    //     this.latitude = position.coords.latitude;
+    //     this.longitude = position.coords.longitude;
+    //     this.zoom = 15;
+    //   });
+    // } else {
+      this.latitude = 23.0293504;
+      this.longitude = 72.5778432;
+      this.zoom = 15;
+    // }
   }
 
   getStoreList() {

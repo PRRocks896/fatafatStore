@@ -14,9 +14,9 @@ import { RegisterationService } from './registeration.service';
 export class RegistrationComponent implements OnInit {
   signUpForm:FormGroup;
 
-  latitude: number;
-  longitude: number;
-  zoom:number;
+  latitude = 23.0293504;
+  longitude = 72.5778432;
+  zoom = 15;
   
   address: any = '';
   constructor(private titleService: Title, private mapService: MapService,
@@ -46,13 +46,16 @@ export class RegistrationComponent implements OnInit {
   }
 
   private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 15;
-      });
-    }
+    // if ('geolocation' in navigator) {
+    //   navigator.geolocation.getCurrentPosition((position) => {
+    //     this.latitude = position.coords.latitude;
+    //     this.longitude = position.coords.longitude;
+    //     this.zoom = 15;
+    //   });
+    // }
+    this.latitude = 23.0293504;
+      this.longitude = 72.5778432;
+      this.zoom = 15;
   }
 
   onSubmit() {
@@ -75,8 +78,8 @@ export class RegistrationComponent implements OnInit {
 
   markerDragEnd($event: MouseEvent) {
     console.log(($event)['coords']);
-    // this.latitude = $event.coords.lat;
-    // this.longitude = $event.coords.lng;
+    this.latitude = $event['coords'].lat;
+    this.longitude = $event['coords'].lng;
     // this.getAddress(this.latitude, this.longitude);
   }
   getStoreAddress() {
