@@ -38,6 +38,32 @@ export class MapComponent implements OnInit {
     this.setCurrentLocation();
     this.getAllRetailers();
     console.log(this.retailerList);
+
+
+    //load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
+
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+          //set latitude, longitude and zoom
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.zoom = 12;
+        });
+      });
+    });
+
    }
 
    private setCurrentLocation() {
@@ -62,13 +88,14 @@ export class MapComponent implements OnInit {
   }
 
   getStoreList() {
-    this.commonService.getLatLongFromAddress(this.address).subscribe((res: any) => {
-      // this.mapService.getLatLongFromAddress(this.address).subscribe((res: any) => {
-        console.log(res);
-      }, err => {
-        console.error(err);
-      });
-    // });  
+    console.log(this.address);
+    // this.commonService.getLatLongFromAddress(this.address).subscribe((res: any) => {
+    //   // this.mapService.getLatLongFromAddress(this.address).subscribe((res: any) => {
+    //     console.log(res);
+    //   }, err => {
+    //     console.error(err);
+    //   });
+    // // });  
   }
 
   markerDragEnd($event: MouseEvent) {
