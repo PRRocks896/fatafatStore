@@ -44,5 +44,13 @@
         <div class="col-md-12">
             <button type="button" class="btn btn-dark">Submit</button>
         </div>
+    </div><br>
+    <div class="row retailer-preview" *ngIf="!deleteImage">
+        <div class="col-md-12">
+            <div class="card">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <button type="button" class="btn btn-danger" (click)="onDeleteImage()">Delete Image</button>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { flatten } from '@angular/compiler';
 
 @Component({
   selector: 'app-retailer',
@@ -10,6 +11,7 @@ export class RetailerComponent implements OnInit {
   @ViewChild('imageContanerDiv', { static: true }) imageContanerDiv: ElementRef;
   url:any = '';
   edited = false;
+  deleteImage:boolean = false;
 
   constructor() { }
 
@@ -28,6 +30,9 @@ export class RetailerComponent implements OnInit {
         this.url = event.target.result;
       }
     }
+  }
+  onDeleteImage(){
+    this.deleteImage = true;
   }
 
 }
