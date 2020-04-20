@@ -7,6 +7,7 @@ import { StoredetailComponent } from './customer/storedetail/storedetail.compone
 import { UserformComponent } from './customer/userform/userform.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { RetailerComponent } from './retailer/retailer.component';
+import { WhyusComponent } from './whyus/whyus.component';
 
 const routes: Routes = [
   { path: '', component: MapComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'customer/storedetail', component: StoredetailComponent },
   { path: 'customer/userform', component: UserformComponent},
+  { path: 'whyus', component:WhyusComponent },
   { path: '**', component: NotfoundComponent},
 ];
 
