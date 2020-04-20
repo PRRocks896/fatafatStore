@@ -29,7 +29,13 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label>Move marker to set location.<i class="astrik">*</i></label>
+                            <label>Search Location, Move marker to locate<i class="astrik">*</i></label>
+                                <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- <label>Move marker to set location.<i class="astrik">*</i></label> -->
                             <div class="card">
                                 <div class="card-body map-container">
                                     <agm-map 
