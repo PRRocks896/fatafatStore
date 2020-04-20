@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { FormGroup, FormControl, ControlContainer, Validators } from '@angular/forms'
 import { Title } from '@angular/platform-browser';
 
@@ -6,6 +6,7 @@ import { Utils } from '../shared/utils';
 import { MapService } from '../map/map.service';
 import { RegisterationService } from './registeration.service';
 import { Router } from '@angular/router';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
 
 @Component({
   selector: 'app-registration',
@@ -18,14 +19,23 @@ export class RegistrationComponent implements OnInit {
   latitude = 23.0293504;
   longitude = 72.5778432;
   zoom = 15;
+  geoCoder;
+
 
   locationError: string;
   
   address: any = '';
+
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+
   constructor(private titleService: Title, private mapService: MapService,
-    private registrationService: RegisterationService, private router: Router) {
+    private ngZone: NgZone,
+    private registrationService: RegisterationService, private router: Router,
+    private mapsAPILoader: MapsAPILoader) {
     this.titleService.setTitle('Registration Retailer' + Utils.getAppName());
   }
+
 
   ngOnInit(): void {
     this.setCurrentLocation();
@@ -46,6 +56,29 @@ export class RegistrationComponent implements OnInit {
       'Phonenumber': new FormControl(''),
       'otp': new FormControl(''),
       'DeliveryOptions': new FormControl('',)
+    });
+    //load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
+
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+          //set latitude, longitude and zoom
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.zoom = 12;
+        });
+      });
     });
   }
 
