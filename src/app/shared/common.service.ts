@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Utils } from '../shared/utils';
 
 @Injectable({
@@ -16,15 +16,27 @@ export class CommonService {
   constructor( private http: HttpClient) {}
 
   getToken() {
-      let body = new FormData();
-      body.append('grant_type', Utils.getAPIBasic().grant_type);
-      return this.http.post(Utils.getDefaultUrl() + 'token', body, {headers: this.header});
+    // dchandra@epsilonium.com
+    // dchandra@epsiloniu4m.com
+    // 123456
+    const params = new HttpParams({
+      fromObject: {
+        grant_type: Utils.getAPIBasic().grant_type
+      }
+    });
+    // let body = new FormData();
+    // body.append('grant_type', 'password');
+    return this.http.post(Utils.getDefaultUrl() + 'token', params, {headers: this.header});
   }
 
-  url = 'https://maps.googleapis.com/maps/api/geocode/json?';
+  url = Utils.getGoogleMapKey();
 
   getLatLongFromAddress(address) {
-    console.log(this.url + `address=${address}&key=${Utils.getGoogleMapKey()}`)
+    // console.log(this.url + `address=${address}&key=${Utils.getGoogleMapKey()}`)
     return this.http.get(this.url + `address=${address}&key=${Utils.getGoogleMapKey()}`);
+  }
+
+  getState() {
+    return this.http.get(this.url + `Common/State`, { headers: this.header});
   }
 }

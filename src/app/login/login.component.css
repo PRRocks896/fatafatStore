@@ -1,3 +1,11 @@
 .astrik {
     color: red;
 }
+.btn {
+    background-color: #cc0202;
+    border-color: transparent;
+    color: #fec13d  ;
+}
+.fa-cog {
+    color: red;
+}

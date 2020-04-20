@@ -11,6 +11,9 @@ export class Utils {
         // return 'AIzaSyBvdfdFYbmQJPRAebQh-bO0sYWj8X74LEU';
         // return 'AIzaSyDXq-ZCLsJK-_DXcDZrEXey2VKYgp0lJs4';
       }
+    static googleAPIKey() {
+      return 'https://maps.googleapis.com/maps/api/geocode/json?';
+    }
 
     static getAPIBasic() {
       return {
@@ -20,8 +23,13 @@ export class Utils {
         grant_type: 'password'
       }
     }
+
+    static imageURLFront() {
+      return 'data:image/jpg;base64,';
+    }
     
     static getAPIToken() {
+      // return `Bearer eGnF6VejDYpZXcg3qCKe_d4QpQn8RVVY_BJWwX79_8d71HGukkT6TggCPyWlVO5RvmvVJmSW2EwpTMMidxyjuplG1CRM4uInex78d0M9HgckEr8Qy7HDkzI1w6WaUrbuoQfgW7YdeajvidVe_T_hMnqMPYDqPH80BGdvJrWrcAopkegBc7QwJQ5ZvFTuVwVh`
       return `Bearer ${localStorage.getItem('token')}`;
     }
 

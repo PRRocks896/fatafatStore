@@ -2,14 +2,17 @@ agm-map {
     width: 100%;
     height: 300px;
 }
-
+.form-container {
+    padding-left: 3%;
+    padding-right: 3%;
+}
 
 .astrik {
     color: red;
 }
 
 .card-container {
-    height: 450px;
+    height: 490px;
 }
 
 .form-card-body {
@@ -36,6 +39,12 @@ agm-map {
     text-align: center;
 }
 
-agm-map {
-    height: 430px;
+.btn {
+    background-color: #cc0202;
+    border-color: transparent;
+    color: #fec13d  ;
+}
+
+.registration-container {
+    padding: 0%;
 }
