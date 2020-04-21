@@ -8,7 +8,7 @@ import { Utils } from './utils';
 export class RetailerService {
 
   header = new HttpHeaders({
-    'Content-Type': 'application/x-www-form-urlencoded',
+    // 'Content-Type': 'application/x-www-form-urlencoded',
     'Authorization': Utils.getAPIToken()
   });
   constructor( private http: HttpClient) {}
@@ -18,4 +18,12 @@ export class RetailerService {
     data.append('file', files);
     return this.http.post(Utils.getDefaultUrl() + 'myfileupload', data);
   }
+
+  storeInventory(body, file) {
+    const params = new FormData();
+    params.append('file', file);
+    params.append('cst', JSON.stringify(body));
+    return this.http.post(Utils.getDefaultUrl() + 'shopping/Inventory', params, {headers: this.header});
+  }
+
 }

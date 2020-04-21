@@ -8,34 +8,15 @@ import { Utils } from '../shared/utils';
 export class RegisterationService {
 
   header = new HttpHeaders({
-    'Content-Type': 'application/x-www-form-urlencoded',
+    // 'Content-Type': 'application/x-www-form-urlencoded',
     'Authorization': Utils.getAPIToken()
   });
   constructor( private http: HttpClient) {}
 
-  addNewRetailer(body) {
-    const params = new HttpParams({
-      fromObject: {
-        StoreName: body.StoreName,
-        StoreImage: 'aa.jpg',
-        Password: body.Password,
-        FirstName: body.FirstName,
-        LastName: body.LastName,
-        Address: body.Address,
-        Address1: body.Address1,
-        City: body.City,
-        StateID: body.State,
-        Pincode: body.Pincode,
-        Email: body.Email,
-        Location: body.Location,
-        Latitude: body.Latitude,
-        Longitude: body.Longitude,
-        InveroryTypeID: '1',
-        Phonenumber: body.Phonenumber,
-        DeliveryOptions: body.DeliveryOptions
-      }
-    });
-    console.log(params);
+  addNewRetailer(body, file) {
+    let params = new FormData();
+    params.append('file', file);
+    params.append('cst', JSON.stringify(body));
     return this.http.post(Utils.getDefaultUrl() + 'Account/Retailer', params, {headers: this.header});
   }
 }

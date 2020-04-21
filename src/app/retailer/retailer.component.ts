@@ -14,6 +14,7 @@ export class RetailerComponent implements OnInit {
   edited = false;
   deleteImage:boolean = false;
   SelectedImage;
+  inventoryDetail: string = '';
 
   constructor(private retailerService: RetailerService) { }
 
@@ -39,10 +40,31 @@ export class RetailerComponent implements OnInit {
   }
 
   uploadIamge() {
-    this.retailerService.storeImage(this.SelectedImage).subscribe((res: any) => {
-      console.log(res);
-    }, err => {
-      console.error(err);
-    })
+    // this.retailerService.storeImage(this.SelectedImage).subscribe((res: any) => {
+    //   console.log(res);
+    // }, err => {
+    //   console.error(err);
+    // })
+  }
+  submitInventory() {
+    // console.log(this.inventoryDetail);
+    // console.log(this.SelectedImage);
+    const body = {
+      RetailerID: "1",
+      ItemName: this.inventoryDetail
+    }
+    this.retailerService.storeInventory(body, this.SelectedImage).subscribe((res: any) => {
+      if(res['errorcode'] == '0')  {
+        this.inventoryDetail = '';
+        this.SelectedImage = null;
+        this.url = '';
+        alert(res['message']);
+        // this.router.navigate(['/']);
+      } else {
+        
+        alert(res['message']);
+      }
+    }, err => console.error(err));
+
   }
 }

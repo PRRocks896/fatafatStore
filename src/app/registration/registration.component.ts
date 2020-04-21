@@ -7,6 +7,7 @@ import { MapService } from '../map/map.service';
 import { RegisterationService } from './registeration.service';
 import { Router } from '@angular/router';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { CommonService } from '../shared/common.service';
 
 @Component({
   selector: 'app-registration',
@@ -16,11 +17,15 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 export class RegistrationComponent implements OnInit {
   signUpForm:FormGroup;
 
+  url:any = '';
   latitude = 23.0293504;
   longitude = 72.5778432;
   zoom = 15;
   geoCoder;
 
+  edited = false;
+  stateDetail: any = [];
+  storeIamge: any;
 
   locationError: string;
   
@@ -31,6 +36,7 @@ export class RegistrationComponent implements OnInit {
 
   constructor(private titleService: Title, private mapService: MapService,
     private ngZone: NgZone,
+    private commonService: CommonService,
     private registrationService: RegisterationService, private router: Router,
     private mapsAPILoader: MapsAPILoader) {
     this.titleService.setTitle('Registration Retailer' + Utils.getAppName());
@@ -39,6 +45,7 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.setCurrentLocation();
+    this.setState();
     this.signUpForm = new FormGroup({
       'StoreName': new FormControl('',),
       'Password': new FormControl('',),
@@ -47,13 +54,14 @@ export class RegistrationComponent implements OnInit {
       'Address': new FormControl('',),
       'Address1': new FormControl('',),
       'City': new FormControl('',),
-      'State': new FormControl('',),
-      'Pincode': new FormControl('',),
+      'StateID': new FormControl(null,),
+      'PinCode': new FormControl('',),
       'Email': new FormControl('',),
       'Latitude': new FormControl('',),
       'Longitude': new FormControl('',),
-      // 'Location': new FormControl('', Validators.required),
-      'Phonenumber': new FormControl(''),
+      'Location': new FormControl('',),
+      'PhoneNumber': new FormControl(''),
+      'InventoryTypeID': new FormControl('1',),
       'otp': new FormControl(''),
       'DeliveryOptions': new FormControl('',)
     });
@@ -67,7 +75,7 @@ export class RegistrationComponent implements OnInit {
         this.ngZone.run(() => {
           //get the place result
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
+          // console.log(place);
           //verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
@@ -76,10 +84,43 @@ export class RegistrationComponent implements OnInit {
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
+          this.signUpForm.patchValue({Latitude: this.longitude.toString()});
+          this.signUpForm.patchValue({Longitude: this.longitude.toString()});
+          this.signUpForm.patchValue({Location: place.formatted_address});
           this.zoom = 12;
         });
       });
     });
+  }
+
+  setState() {
+    this.commonService.getState().subscribe((res: any) => {
+      // console.log(res);
+      if(res.errorcode == '0') {
+        this.stateDetail = res.StateList;
+        console.log(this.stateDetail);
+      } else {
+        alert(res.message);
+      }
+    }, err => console.error(err));
+  }
+
+  addState(stateID) {
+    // console.log(stateID);
+    this.signUpForm.patchValue({StateID: stateID});
+  }
+  onSelectFile(event) {
+    this.storeIamge = event.target.files[0];
+    if (event.target.files && event.target.files[0]) {
+      this.edited = true;
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        this.url = event.target.result;
+      }
+    }
   }
 
   private setCurrentLocation() {
@@ -96,9 +137,10 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log(this.signUpForm.value);
-    this.registrationService.addNewRetailer(this.signUpForm.value).subscribe((res: any) => {
-      // console.log(res);
+    console.log(this.signUpForm.value);
+    console.log(this.storeIamge);
+    this.registrationService.addNewRetailer(this.signUpForm.value, this.storeIamge).subscribe((res: any) => {
+      console.log(res);
       if(res['errorcode'] == '0')  {
         this.signUpForm.reset();
         alert(res['message']);
@@ -127,6 +169,8 @@ export class RegistrationComponent implements OnInit {
     console.log(($event)['coords']);
     this.latitude = $event['coords'].lat;
     this.longitude = $event['coords'].lng;
+    this.signUpForm.patchValue({Latitude: this.longitude});
+    this.signUpForm.patchValue({Longitude: this.longitude});
     // this.getAddress(this.latitude, this.longitude);
   }
   getStoreAddress() {

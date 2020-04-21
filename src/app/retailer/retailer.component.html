@@ -23,10 +23,10 @@
         <div class="col-md-12 image-preview">
             <img [src]="url" id="single-image">
         </div>
-        <div class="col-md-12 submit-image">
+        <!-- <div class="col-md-12 submit-image">
             <br>
             <button class="btn btn-dark" (click)="uploadIamge()" >Upload Image</button>
-        </div>
+        </div> -->
     </div>
     <div class="row or-container">
         <div class="col-md-12">
@@ -36,13 +36,13 @@
     <div class="row inventory-list">
         <div class="col-md-12">
             <p>TYPE YOUR INVENTORY</p>
-            <textarea class="form-control"></textarea>
+            <textarea class="form-control" [(ngModel)]="inventoryDetail" required></textarea>
         </div>
     </div>
     <br>
     <div class="row ok-button">
         <div class="col-md-12">
-            <button type="button" class="btn btn-dark">Submit</button>
+            <button type="button" (click)="submitInventory()" class="btn btn-dark">Submit</button>
         </div>
     </div><br>
     <div class="row retailer-preview" *ngIf="!deleteImage">

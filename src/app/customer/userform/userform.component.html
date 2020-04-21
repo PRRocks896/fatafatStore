@@ -1,4 +1,126 @@
-<section class="user_form">
+<div class="container-xl registration-container">
+    <h6 id="formHeading">Order Form</h6>
+    <form [formGroup]="userform" id="userForm" (ngSubmit)="onSubmit()">
+        <div class="card card-container">
+            <div class="card-body form-card-body">
+                <div class="form-group form-container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="file" id="img" class="inputfile" name="img" accept="image/*" (change)="onSelectFile($event)">
+                            <label for="img"><i class="fa fa-camera fa-3x" aria-hidden="true" style="color:#fec13d;"></i></label>
+                            <!-- &nbsp;&nbsp;
+                            <i class="fa fa-camera fa-3x" aria-hidden="true" style="color:#fec13d;"></i> -->
+                        </div>
+                    </div>
+                    <h3>OR</h3>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>YOUR ORDER<i class="astrik">*</i></label>
+                            <textarea class="form-control" formControlName="ItemName" rows="3" >
+                                
+                            </textarea>
+                            <div class="alert alert-danger" *ngIf="ValidateForm('ItemName')">
+                                Please provide order detail
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="number">WhatsApp Number<i class="astrik">*</i></label>
+                            <input type="text" class="form-control" formControlName="PhoneNumber" placeholder="Number"> <br>
+                        </div>
+                        <div class="col-md-2 get-otp-button">
+                            <button type="button" class="btn btn-dark" (click)="onGetOtp()">Get OTP</button>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="otp">OTP<i class="astrik">*</i></label>
+                            <input type="password" class="form-control" formControlName="otp" placeholder="OTP"> <br>
+                        </div>
+                        <div class="col-md-2 verify-otp-button">
+                            <button type="button" class="btn btn-dark" (click)="onVerifyOtp()">Verify</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>FIRST NAME<i class="astrik">*</i></label>
+                            <input type="text" class="form-control" formControlName="FirstName" placeholder="" value="" required/>
+                            <div class="alert alert-danger" *ngIf="ValidateForm('FirstName')">
+                                Please provide first name
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>LAST NAME<i class="astrik">*</i></label>
+                            <input type="text" class="form-control" formControlName="LastName" placeholder="" value="" required/>
+                            <div class="alert alert-danger" *ngIf="ValidateForm('LastName')">
+                                Please provide last name
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Address<i class="astrik">*</i></label>
+                            <input type="text" class="form-control" formControlName="Address" placeholder="Address Line-1"> <br>
+                            <input type="text" class="form-control" formControlName="Address1" placeholder="Address Line-2"> <br>
+                            <input type="text" class="form-control" formControlName="City" placeholder="City"> <br>
+                            <!-- <input type="text" class="form-control" formControlName="State" placeholder="State"> <br> -->
+                            <select style="margin-bottom: 3%;" class="form-control" (change)="addState($event.target.value)"  formContolName="StateID">
+                                <option disabled value= "select state" selected> Select State </option>
+                                <option [value]="state.StateID" *ngFor="let state of stateDetail" (change)="addState(state.StateID)" >
+                                    {{state.StateName}}
+                                </option>
+                            </select>
+                            <input type="text" class="form-control" formControlName="PinCode" placeholder="Pincode"> <br>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-md-12">
+                            <label>PINCODE<i class="astrik">*</i></label>
+                            <input type="text" class="form-control" formControlName="pincode"  placeholder="" value="" required/>
+                            <div class="alert alert-danger" *ngIf="ValidateForm('pincode')">
+                                Please provide pincode
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>MARK YOUR LOCATION<i class="astrik">*</i></label>
+                            <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+                            <div class="alert alert-danger" *ngIf="ValidateForm('location')">
+                                Please provide location
+                            </div>
+                            <div *ngIf="locationError.length > 0">
+                                <span>{{locationError}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <agm-map 
+                                [latitude]="latitude" 
+                                [longitude]="longitude" 
+                                [zoom]="zoom" >
+                                <agm-marker 
+                                [latitude]="latitude" 
+                                [longitude]="longitude"
+                                [markerDraggable]="true"
+                                (dragEnd)="markerDragEnd($event)"></agm-marker>
+                            </agm-map>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row submit-button">
+            <div class="col-md-12">
+                <button type="submit" [disabled]="!userform.valid" class="btn btn-dark">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- <section class="user_form">
     <div class="col-md-12"><h1>Customer Order Form</h1></div>
     <div class="user-form-content">
         
@@ -73,6 +195,12 @@
                             <div class="alert alert-danger" *ngIf="ValidateForm('state')">
                                 Please provide state
                             </div>
+                            <select style="margin-bottom: 3%;" class="form-control" (change)="addState($event.target.value)"  formContolName="State1">
+                                <option disabled value= "select state" selected> Select State </option>
+                                <option [value]="state.StateID" *ngFor="let state of stateDetail" (change)="addState(state.StateID)" >
+                                    {{state.StateName}}
+                                </option>
+                            </select>
                         </div>
                         <div class="box-1">
                             <label>PINCODE*</label>
@@ -108,4 +236,4 @@
                 <button type="submit" [disabled]="!userform.valid" class="btnSubmit">Submit</button>
         </form>
     </div>
-</section>
+</section> -->

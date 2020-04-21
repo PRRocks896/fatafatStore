@@ -6,6 +6,14 @@
                 <div class="form-group form-container">
                     <div class="row">
                         <div class="col-md-12">
+                            <input type="file" id="img" class="inputfile" name="img" accept="image/*" (change)="onSelectFile($event)">
+                            <label for="img"><i class="fa fa-camera fa-3x" aria-hidden="true" style="color:#fec13d;"></i></label>
+                            <!-- &nbsp;&nbsp;
+                            <i class="fa fa-camera fa-3x" aria-hidden="true" style="color:#fec13d;"></i> -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
                             <label for="shopName">Shop Name<i class="astrik">*</i></label>
                             <input type="text" class="form-control" formControlName="StoreName" placeholder="Shop Name" required> <br>
                         </div>
@@ -23,8 +31,14 @@
                             <input type="text" class="form-control" formControlName="Address" placeholder="Address Line-1"> <br>
                             <input type="text" class="form-control" formControlName="Address1" placeholder="Address Line-2"> <br>
                             <input type="text" class="form-control" formControlName="City" placeholder="City"> <br>
-                            <input type="text" class="form-control" formControlName="State" placeholder="State"> <br>
-                            <input type="number" class="form-control" formControlName="Pincode" placeholder="Pincode"> <br>
+                            <!-- <input type="text" class="form-control" formControlName="State" placeholder="State"> <br> -->
+                            <select style="margin-bottom: 3%;" class="form-control" (change)="addState($event.target.value)"  formContolName="State1">
+                                <option disabled value= "select state" selected> Select State </option>
+                                <option [value]="state.StateID" *ngFor="let state of stateDetail" (change)="addState(state.StateID)" >
+                                    {{state.StateName}}
+                                </option>
+                            </select>
+                            <input type="text" class="form-control" formControlName="PinCode" placeholder="Pincode"> <br>
                         </div>
                     </div>
                     <div class="row">
@@ -55,7 +69,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label for="number">WhatsApp Number<i class="astrik">*</i></label>
-                            <input type="number" class="form-control" formControlName="Phonenumber" placeholder="Number"> <br>
+                            <input type="text" class="form-control" formControlName="PhoneNumber" placeholder="Number"> <br>
                         </div>
                         <div class="col-md-2 get-otp-button">
                             <button type="button" class="btn btn-dark" (click)="onGetOtp()">Get OTP</button>
@@ -69,7 +83,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        
+                        <div class="col-md-12">
+                            <label for="password">Email<i class="astrik">*</i></label>
+                            <input type="email" class="form-control" formControlName="Email" placeholder="Email" email required> <br>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">

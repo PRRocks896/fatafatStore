@@ -37,6 +37,8 @@ export class CommonService {
   }
 
   getState() {
-    return this.http.get(this.url + `Common/State`, { headers: this.header});
+    return this.http.get(Utils.getDefaultUrl() + `Common/State`, { headers: new HttpHeaders({
+      'Authorization': Utils.getAPIToken()
+    })});
   }
 }

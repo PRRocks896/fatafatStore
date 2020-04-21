@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Utils } from 'src/app/shared/utils';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/shared/common.service';
 import { UserformService } from './userform.service';
 import { Router } from '@angular/router';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
 
 @Component({
   selector: 'app-userform',
@@ -14,38 +15,105 @@ import { Router } from '@angular/router';
 export class UserformComponent implements OnInit {
 
   userform: FormGroup;
-  latitude: number;
-  longitude: number;
-  zoom:number;
+  latitude: number = 23.0293504;
+  longitude: number = 72.5778432
+  zoom:number = 15;
+  geoCoder;
   locationError: String = '';
   address: any = '';
+  stateDetail: any;
+
+  storeIamge: any;
+  edited = false;
+  url:any = '';
+
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+
   constructor(private titleService: Title, private commonService: CommonService,
-    private userService: UserformService, private router: Router) {
+    private userService: UserformService, private router: Router,
+    private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
     this.titleService.setTitle('User Form' + Utils.getAppName());
   }
 
   ngOnInit(): void {
-    this.setCurrentLocation();
+    // this.setCurrentLocation();
+    this.getState();
     this.userform = new FormGroup({
-      'orderdescription': new FormControl('', Validators.required),
-      'firstname': new FormControl('', Validators.required),
-      'lastname': new FormControl('', Validators.required),
-      'phonenumber': new FormControl('', [Validators.required, 
+      'ItemName': new FormControl('', Validators.required),
+      'FirstName': new FormControl('', Validators.required),
+      'LastName': new FormControl('', Validators.required),
+      'PhoneNumber': new FormControl('', [Validators.required, 
         Validators.pattern('[0-9]*'),
         Validators.min(0), Validators.maxLength(10),
         Validators.minLength(10)]),
-      'retailerID': new FormControl('', Validators.required),
-      'address': new FormControl('', Validators.required),
-      'address1': new FormControl('', Validators.required),
-      'city': new FormControl('', Validators.required),
-      'state': new FormControl('', Validators.required),
-      'pincode': new FormControl('', Validators.required),
+      'RetailerID': new FormControl('1', Validators.required),
+      'Address': new FormControl('', Validators.required),
+      'Address1': new FormControl('', Validators.required),
+      'City': new FormControl('', Validators.required),
+      'StateID': new FormControl('', Validators.required),
+      'PinCode': new FormControl('', Validators.required),
       'otp': new FormControl('',),
-      'latitude': new FormControl('', Validators.required),
-      'longitude': new FormControl('', Validators.required),
-      'location': new FormControl('', Validators.required)
+      'Latitude': new FormControl('', Validators.required),
+      'Longitude': new FormControl('', Validators.required),
     });
     this.userform.patchValue({retailerID: 7});
+    //load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      // this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
+
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          // console.log(place);
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+          //set latitude, longitude and zoom
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.userform.patchValue({Latitude: this.longitude.toString()});
+          this.userform.patchValue({Longitude: this.longitude.toString()});
+          this.userform.patchValue({Location: place.formatted_address});
+          this.zoom = 12;
+        });
+      });
+    });
+  }
+
+  getState() {
+    this.commonService.getState().subscribe((res: any) => {
+      if(res.errorcode == '0') {
+        this.stateDetail = res.StateList;
+        // console.log(this.stateDetail);
+      } else {
+        alert(res.message);
+      }
+    }, err => console.error(err));
+  }
+
+  addState(stateID) {
+    // console.log(stateID);
+    this.userform.patchValue({StateID: stateID});
+  }
+
+  onSelectFile(event) {
+    this.storeIamge = event.target.files[0];
+    if (event.target.files && event.target.files[0]) {
+      this.edited = true;
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        this.url = event.target.result;
+      }
+    }
   }
 
   private setCurrentLocation() {
@@ -67,12 +135,12 @@ export class UserformComponent implements OnInit {
     // console.log(this.userform.value);
     if(this.userform.valid) {
       
-      this.userService.postOrder(this.userform.value).subscribe((res: any) => {
+      this.userService.postOrder(this.userform.value, this.storeIamge).subscribe((res: any) => {
         // console.log(res);
         if(res['errorcode'] == '0')  {
           this.userform.reset();
           alert(res['message']);
-          // this.router.navigate(['/']);
+          this.router.navigate(['/']);
         } else {
           
           alert(res['message']);
