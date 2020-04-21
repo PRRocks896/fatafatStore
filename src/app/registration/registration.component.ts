@@ -18,8 +18,8 @@ export class RegistrationComponent implements OnInit {
   signUpForm:FormGroup;
 
   url:any = '';
-  latitude = 23.0293504;
-  longitude = 72.5778432;
+  latitude = 26.5123;
+  longitude = 80.2329;
   zoom = 15;
   geoCoder;
 
@@ -131,8 +131,8 @@ export class RegistrationComponent implements OnInit {
     //     this.zoom = 15;
     //   });
     // }
-    this.latitude = 23.0293504;
-      this.longitude = 72.5778432;
+    this.latitude = 26.5123;
+      this.longitude = 80.2329;
       this.zoom = 15;
   }
 

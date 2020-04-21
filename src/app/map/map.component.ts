@@ -14,8 +14,8 @@ declare var google : google;
 export class MapComponent implements OnInit {
 
   title: string = 'AGM project';
-  latitude = 23.0293504;
-  longitude = 72.5778432;
+  latitude = 26.5123;
+  longitude = 80.2329;
   zoom = 15;
   address: string;
   geoCoder;
@@ -75,8 +75,8 @@ export class MapComponent implements OnInit {
     //     this.zoom = 15;
     //   });
     // } else {
-      this.latitude = 23.0293504;
-      this.longitude = 72.5778432;
+      this.latitude = 26.5123;
+      this.longitude = 80.2329;
       this.zoom = 15;
     // }
   }
