@@ -23,8 +23,8 @@ export class MapComponent implements OnInit {
   iconUrl = {
     url: "../assets/images/icons-01.png",
     scaledSize: {
-      width: 40,
-      height: 45
+      width: 30,
+      height: 35
     }
   } 
 
