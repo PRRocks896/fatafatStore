@@ -15,8 +15,8 @@ export class MapService {
     return this.http.get(this.url + `address=${address}&key=${Utils.getGoogleMapKey()}`);
   }
 
-  getNearbyRetailers() {
-    
+  getNearbyRetailers(body) {
+    return this.http.get(Utils.getDefaultUrl() + `store?Location=${encodeURIComponent(body.location)}&Latitude=${body.latitude}&Longitude=${body.longitude}`);
   }
 
 }

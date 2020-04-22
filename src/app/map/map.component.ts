@@ -55,11 +55,20 @@ export class MapComponent implements OnInit {
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
+          console.log(place);
 
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
           this.zoom = 12;
+          const body = {
+            location: place.formatted_address,
+            latitude: this.latitude,
+            longitude: this.longitude
+          }
+          this.mapService.getNearbyRetailers(body).subscribe((res: any) => {
+            console.log(res);
+          },err => console.error(err));
         });
       });
     });

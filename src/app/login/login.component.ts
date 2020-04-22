@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    console.log(this.loginForm.value);
+    // console.log(this.loginForm.value);
 
     let body = this.loginForm.value; // new FormData();
     // body.append('Email', this.loginForm.value.email);
@@ -43,8 +43,11 @@ export class LoginComponent implements OnInit {
       // this.imageURL = 'data:image/jpg;base64,' + res['StoreList'][0]['StoreImage']; 
       if(res['errorcode'] == '0') { 
         this.router.navigate(['retailer']);
+      } else if(res['errorcode'] == '404') {
+        alert(res['message']);
       }
     }, (err: any) => {
+      alert(err.error.message);
       console.error(err);
     })
     

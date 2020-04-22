@@ -62,7 +62,7 @@ export class RegistrationComponent implements OnInit {
       'Location': new FormControl('',),
       'PhoneNumber': new FormControl(''),
       'InventoryTypeID': new FormControl('1',),
-      'otp': new FormControl(''),
+      'otp': new FormControl('1111'),
       'DeliveryOptions': new FormControl('',)
     });
     //load Places Autocomplete
@@ -98,7 +98,7 @@ export class RegistrationComponent implements OnInit {
       // console.log(res);
       if(res.errorcode == '0') {
         this.stateDetail = res.StateList;
-        console.log(this.stateDetail);
+        // console.log(this.stateDetail);
       } else {
         alert(res.message);
       }
@@ -138,20 +138,19 @@ export class RegistrationComponent implements OnInit {
 
   onSubmit() {
     console.log(this.signUpForm.value);
-    console.log(this.storeIamge);
-    this.registrationService.addNewRetailer(this.signUpForm.value, this.storeIamge).subscribe((res: any) => {
-      console.log(res);
-      if(res['errorcode'] == '0')  {
-        this.signUpForm.reset();
-        alert(res['message']);
-        this.router.navigate(['/']);
-      } else {
-        
-        alert(res['message']);
-      }
-    }, (err: any) => {
-      console.error(err);
-    })
+    // console.log(this.storeIamge);
+    // this.registrationService.addNewRetailer(this.signUpForm.value, this.storeIamge).subscribe((res: any) => {
+    //   if(res['errorcode'] == '0')  {
+    //     this.signUpForm.reset();
+    //     alert(res['message']);
+    //     this.router.navigate(['/']);
+    //   } else {
+    //     alert(res['message']);
+    //   }
+    // }, (err: any) => {
+    //   alert(err.error.message);
+    //   console.error(err);
+    // })
   }
 
   onVerifyOtp() {
@@ -166,7 +165,7 @@ export class RegistrationComponent implements OnInit {
   markerDragEnd($event: MouseEvent) {
     this.signUpForm.value['Location'] = ($event)['coords'];
 
-    console.log(($event)['coords']);
+    // console.log(($event)['coords']);
     this.latitude = $event['coords'].lat;
     this.longitude = $event['coords'].lng;
     this.signUpForm.patchValue({Latitude: this.longitude});
@@ -182,8 +181,8 @@ export class RegistrationComponent implements OnInit {
         const detail = res['results'][0];
         this.latitude = detail['geometry']['location']['lat'];
         this.longitude = detail['geometry']['location']['lng'];
-        console.log(this.latitude);
-        console.log(this.longitude);
+        // console.log(this.latitude);
+        // console.log(this.longitude);
         this.signUpForm.patchValue({Latitude: this.longitude});
         this.signUpForm.patchValue({Longitude: this.longitude});
       } else {
