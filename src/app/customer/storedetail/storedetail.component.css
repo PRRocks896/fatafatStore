@@ -11,9 +11,8 @@
    
    }
    .stores-images{
-       height: 500px;
-       overflow-x: hidden;
-   
+       /* height: 500px; */
+       overflow-x: hidden;   
    }
    .main-store-img{
        margin-bottom: 25px;
@@ -21,24 +20,25 @@
    .product-img{
        width: 100%;
    }
-   .store-text-box{
-       padding: 0px 50px;
+   .store-text-box p{
+       text-align: center;
+       /* padding: 0px 50px;
        margin-top: 25px;
-       box-shadow: 0px -3px 10px #dedada;
+       box-shadow: 0px -3px 10px #dedada; */
    }
    .text-area-main{
-       padding: 25px 0px;
+       /* padding: 25px 0px; */
    }
    .text-area{
        width: 100%;
-       text-indent: 11px;
+       /* text-indent: 11px;
        border-radius: 20px;
        border: 1px solid #000;
        outline: none;
-       padding: 0px 5px;
+       padding: 0px 5px; */
    }
-   .file {
-       visibility: hidden;
+   .inputfile {
+       /* visibility: hidden; */
        position: absolute;
      }
      .btn.btn-primary {
@@ -50,4 +50,14 @@
    .file-broeser{
        border: 1px solid #ced4da !important;
      }
+
+.btn {
+    background-color: #cc0202;
+    border-color: transparent;
+    color: #fec13d  ;
+}
+
+.next-button-container {
+    padding: 0%;
+}
    /**************end rk store **************/
