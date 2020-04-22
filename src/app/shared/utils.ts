@@ -21,6 +21,10 @@ export class Utils {
       return 'https://maps.googleapis.com/maps/api/geocode/json?';
     }
 
+    static getDistance() {
+      return 10;
+    }
+
     static getAPIBasic() {
       return {
         username: 'fatafat@fatafat.store.com',
