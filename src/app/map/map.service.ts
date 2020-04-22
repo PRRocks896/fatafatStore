@@ -8,6 +8,10 @@ import { Utils } from '../shared/utils';
 export class MapService {
 
   url = 'https://maps.googleapis.com/maps/api/geocode/json?';
+  header = new HttpHeaders({
+    // 'Content-Type': 'application/x-www-form-urlencoded',
+    'Authorization': Utils.getAPIToken()
+  });
   constructor( private http: HttpClient) {}
 
   getLatLongFromAddress(address) {
@@ -15,8 +19,8 @@ export class MapService {
     return this.http.get(this.url + `address=${address}&key=${Utils.getGoogleMapKey()}`);
   }
 
-  getNearbyRetailers() {
-    
+  getNearbyRetailers(body) {
+    return this.http.get(Utils.getDefaultUrl() + `store?Location=${encodeURIComponent(body.location)}&Latitude=${body.latitude}&Longitude=${body.longitude}`, { headers: this.header});
   }
 
 }

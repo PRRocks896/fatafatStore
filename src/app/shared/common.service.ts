@@ -41,4 +41,23 @@ export class CommonService {
       'Authorization': Utils.getAPIToken()
     })});
   }
+
+  whatsappUrl = 'https://api.chat-api.com/instance119365/sendMessage?token=epu7vymklbgy06u3';
+
+  sendOTP(body) {
+
+    return this.http.post(this.whatsappUrl, JSON.stringify(body), {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      }
+    });
+  }
+
+  sendMsg(body) {
+    return this.http.post(this.whatsappUrl, JSON.stringify(body), {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      }
+    });
+  }
 }

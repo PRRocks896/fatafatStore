@@ -64,7 +64,9 @@ export class RetailerComponent implements OnInit {
         
         alert(res['message']);
       }
-    }, err => console.error(err));
-
+    }, err => {
+      alert(err.error.message);
+      console.error(err)
+    });
   }
 }

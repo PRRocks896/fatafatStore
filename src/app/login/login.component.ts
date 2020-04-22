@@ -42,9 +42,13 @@ export class LoginComponent implements OnInit {
       // console.log(res);
       // this.imageURL = 'data:image/jpg;base64,' + res['StoreList'][0]['StoreImage']; 
       if(res['errorcode'] == '0') { 
+        localStorage.setItem('retailer', JSON.stringify(res['StoreList'][0]));
         this.router.navigate(['retailer']);
+      } else if(res['errorcode'] == '404') {
+        alert(res['message']);
       }
     }, (err: any) => {
+      alert(err.error.message);
       console.error(err);
     })
     
