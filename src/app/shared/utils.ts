@@ -6,6 +6,7 @@ export class Utils {
       return 'http://fatafatapi.epsilonium.com/api/v1.0/';
       }
     static getImages() {
+      // return 'https://api.fatafat.store/images/'
       return 'http://fatafatapi.epsilonium.com/images/'; // store,inventory, order
     }
     

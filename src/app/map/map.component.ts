@@ -36,7 +36,7 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this.setCurrentLocation();
-    this.getAllRetailers();
+    // this.getAllRetailers();
     // this.getAllRetailers();
     // console.log(this.retailerList);
 
@@ -70,6 +70,7 @@ export class MapComponent implements OnInit {
           this.mapService.getNearbyRetailers(body).subscribe((res: any) => {
             console.log(res);
             if(res.errorcode == '0') {
+              this.retailerList = [];
               res.StoreList.filter(store => {
                 this.retailerList.push({latitude: store.Latitude , longitude: store.Longitude, shopName: store.StoreName})
               });
