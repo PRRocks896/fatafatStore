@@ -36,6 +36,7 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this.setCurrentLocation();
+    this.getAllRetailers();
     // this.getAllRetailers();
     // console.log(this.retailerList);
 
@@ -105,7 +106,7 @@ export class MapComponent implements OnInit {
   }
 
   getStoreList() {
-    console.log(this.address);
+    // console.log(this.address);
     // this.commonService.getLatLongFromAddress(this.address).subscribe((res: any) => {
     //   // this.mapService.getLatLongFromAddress(this.address).subscribe((res: any) => {
     //     console.log(res);
@@ -118,10 +119,10 @@ export class MapComponent implements OnInit {
   markerDragEnd($event: MouseEvent) {
     this.latitude = $event.coords.lat;
     this.longitude = $event.coords.lng;
-    console.log(this.latitude +" "+this.longitude);
+    // console.log(this.latitude +" "+this.longitude);
   }
 
   openWindow() {
-    console.log("hello");
+    // console.log("hello");
   }
 }

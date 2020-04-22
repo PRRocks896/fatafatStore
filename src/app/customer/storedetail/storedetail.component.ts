@@ -18,7 +18,6 @@ export class StoredetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.router.navigate(['']);
   }
 
   fileProgress(fileInput: any) {
@@ -39,9 +38,6 @@ export class StoredetailComponent implements OnInit {
   }
 
   onNextPage() {
-    // console.log(this.activatedRoute)
-    console.log("in next page");
-    console.log(this.router);
     this.router.navigate(['customer/userform']);
   }
   // Dont remove the below function checks for any keypresses in text feild

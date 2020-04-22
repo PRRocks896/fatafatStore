@@ -5,26 +5,6 @@
             <div class="card-body form-card-body">
                 <div class="form-group form-container">
                     <div class="row">
-                        <div class="col-md-12">
-                            <input type="file" id="img" class="inputfile" name="img" accept="image/*" (change)="onSelectFile($event)">
-                            <label for="img"><i class="fa fa-camera fa-3x" aria-hidden="true" style="color:#fec13d;"></i></label>
-                            <!-- &nbsp;&nbsp;
-                            <i class="fa fa-camera fa-3x" aria-hidden="true" style="color:#fec13d;"></i> -->
-                        </div>
-                    </div>
-                    <h3>OR</h3>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label>YOUR ORDER<i class="astrik">*</i></label>
-                            <textarea class="form-control" formControlName="ItemName" rows="3" >
-                                
-                            </textarea>
-                            <div class="alert alert-danger" *ngIf="ValidateForm('ItemName')">
-                                Please provide order detail
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-4">
                             <label for="number">WhatsApp Number<i class="astrik">*</i></label>
                             <input type="text" class="form-control" formControlName="PhoneNumber" placeholder="Number"> <br>
@@ -42,7 +22,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label>FIRST NAME<i class="astrik">*</i></label>
+                            <label>First Name<i class="astrik">*</i></label>
                             <input type="text" class="form-control" formControlName="FirstName" placeholder="" value="" required/>
                             <div class="alert alert-danger" *ngIf="ValidateForm('FirstName')">
                                 Please provide first name
@@ -51,7 +31,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label>LAST NAME<i class="astrik">*</i></label>
+                            <label>Last Name<i class="astrik">*</i></label>
                             <input type="text" class="form-control" formControlName="LastName" placeholder="" value="" required/>
                             <div class="alert alert-danger" *ngIf="ValidateForm('LastName')">
                                 Please provide last name
@@ -85,7 +65,7 @@
                     </div> -->
                     <div class="row">
                         <div class="col-md-12">
-                            <label>MARK YOUR LOCATION<i class="astrik">*</i></label>
+                            <label>Search Location, Move marker to locate<i class="astrik">*</i></label>
                             <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
                             <div class="alert alert-danger" *ngIf="ValidateForm('location')">
                                 Please provide location
