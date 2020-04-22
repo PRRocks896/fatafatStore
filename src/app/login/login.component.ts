@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    console.log(this.loginForm.value);
+    // console.log(this.loginForm.value);
 
     let body = this.loginForm.value; // new FormData();
     // body.append('Email', this.loginForm.value.email);

@@ -98,7 +98,7 @@ export class RegistrationComponent implements OnInit {
       // console.log(res);
       if(res.errorcode == '0') {
         this.stateDetail = res.StateList;
-        console.log(this.stateDetail);
+        // console.log(this.stateDetail);
       } else {
         alert(res.message);
       }

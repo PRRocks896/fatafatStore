@@ -15,8 +15,8 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 export class UserformComponent implements OnInit {
 
   userform: FormGroup;
-  latitude: number = 23.0293504;
-  longitude: number = 72.5778432
+  latitude:number = 26.5123;
+  longitude:number = 80.2329;
   zoom:number = 15;
   geoCoder;
   locationError: String = '';
@@ -159,8 +159,6 @@ export class UserformComponent implements OnInit {
     } else {
       alert('OTP does not match');
     }
-
-
   }
 
   onGetOtp() {

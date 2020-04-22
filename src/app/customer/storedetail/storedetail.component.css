@@ -57,7 +57,10 @@
     color: #fec13d  ;
 }
 
-.next-button-container {
-    padding: 0%;
+#customFile {
+    visibility: hidden;
 }
+/* .custom-file-input:lang(en)~.custom-file-label::after {
+    content: "something";
+} */
    /**************end rk store **************/
