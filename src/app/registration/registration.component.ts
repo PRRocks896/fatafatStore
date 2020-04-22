@@ -84,9 +84,9 @@ export class RegistrationComponent implements OnInit {
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
-          this.signUpForm.patchValue({Latitude: this.longitude.toString()});
+          this.signUpForm.patchValue({Latitude: this.latitude.toString()});
           this.signUpForm.patchValue({Longitude: this.longitude.toString()});
-          this.signUpForm.patchValue({Location: place.formatted_address});
+          this.signUpForm.patchValue({Location: place.address_components[1].long_name});
           this.zoom = 12;
         });
       });
@@ -137,20 +137,20 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signUpForm.value);
+    // console.log(this.signUpForm.value);
     // console.log(this.storeIamge);
-    // this.registrationService.addNewRetailer(this.signUpForm.value, this.storeIamge).subscribe((res: any) => {
-    //   if(res['errorcode'] == '0')  {
-    //     this.signUpForm.reset();
-    //     alert(res['message']);
-    //     this.router.navigate(['/']);
-    //   } else {
-    //     alert(res['message']);
-    //   }
-    // }, (err: any) => {
-    //   alert(err.error.message);
-    //   console.error(err);
-    // })
+    this.registrationService.addNewRetailer(this.signUpForm.value, this.storeIamge).subscribe((res: any) => {
+      if(res['errorcode'] == '0')  {
+        this.signUpForm.reset();
+        alert(res['message']);
+        this.router.navigate(['/']);
+      } else {
+        alert(res['message']);
+      }
+    }, (err: any) => {
+      alert(err.error.message);
+      console.error(err);
+    })
   }
 
   onVerifyOtp() {
@@ -172,25 +172,21 @@ export class RegistrationComponent implements OnInit {
     this.signUpForm.patchValue({Longitude: this.longitude});
     // this.getAddress(this.latitude, this.longitude);
   }
-  getStoreAddress() {
-    // console.log(this.address);
-    this.mapService.getLatLongFromAddress(this.address).subscribe((res: any) => {
-      // console.log(res);
-      if(res['results'].length > 0) {
-        this.locationError = '';
-        const detail = res['results'][0];
-        this.latitude = detail['geometry']['location']['lat'];
-        this.longitude = detail['geometry']['location']['lng'];
-        // console.log(this.latitude);
-        // console.log(this.longitude);
-        this.signUpForm.patchValue({Latitude: this.longitude});
-        this.signUpForm.patchValue({Longitude: this.longitude});
-      } else {
-        this.locationError = 'Location not found'
-      }
-    }, err => {
-      console.error(err);
-    })
-  }
+  // getStoreAddress() {
+  //   this.mapService.getLatLongFromAddress(this.address).subscribe((res: any) => {
+  //     if(res['results'].length > 0) {
+  //       this.locationError = '';
+  //       const detail = res['results'][0];
+  //       this.latitude = detail['geometry']['location']['lat'];
+  //       this.longitude = detail['geometry']['location']['lng'];
+  //       this.signUpForm.patchValue({Latitude: this.longitude});
+  //       this.signUpForm.patchValue({Longitude: this.longitude});
+  //     } else {
+  //       this.locationError = 'Location not found'
+  //     }
+  //   }, err => {
+  //     console.error(err);
+  //   })
+  // }
 
 }

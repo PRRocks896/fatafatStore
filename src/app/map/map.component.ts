@@ -36,8 +36,8 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this.setCurrentLocation();
-    this.getAllRetailers();
-    console.log(this.retailerList);
+    // this.getAllRetailers();
+    // console.log(this.retailerList);
 
 
     //load Places Autocomplete
@@ -55,19 +55,27 @@ export class MapComponent implements OnInit {
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
-          console.log(place);
+          // console.log(place);
 
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
           this.zoom = 12;
           const body = {
-            location: place.formatted_address,
+            location: place.address_components[1].long_name,
             latitude: this.latitude,
             longitude: this.longitude
           }
           this.mapService.getNearbyRetailers(body).subscribe((res: any) => {
             console.log(res);
+            if(res.errorcode == '0') {
+              res.StoreList.filter(store => {
+                this.retailerList.push({latitude: store.Latitude , longitude: store.Longitude, shopName: store.StoreName})
+              });
+              console.log(this.retailerList);
+            } else {
+              alert(res['message']);
+            }
           },err => console.error(err));
         });
       });
