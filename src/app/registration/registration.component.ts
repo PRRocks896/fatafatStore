@@ -31,6 +31,9 @@ export class RegistrationComponent implements OnInit {
   
   address: any = '';
 
+  OTP: any = '';
+  OTPVerify = false;
+
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
@@ -62,7 +65,7 @@ export class RegistrationComponent implements OnInit {
       'Location': new FormControl('',),
       'PhoneNumber': new FormControl(''),
       'InventoryTypeID': new FormControl('1',),
-      'otp': new FormControl('1111'),
+      'otp': new FormControl(''),
       'DeliveryOptions': new FormControl('',)
     });
     //load Places Autocomplete
@@ -154,11 +157,30 @@ export class RegistrationComponent implements OnInit {
   }
 
   onVerifyOtp() {
-    console.log("In verify");
+    // console.log("In verify");
+    const enteredOTP = this.signUpForm.value.otp;
+    if(enteredOTP == this.OTP) {
+      this.OTPVerify = true;
+      alert('OTP Verified');
+    } else {
+      alert('OTP does not match');
+    }
   }
 
   onGetOtp() {
-    console.log("In get otp");
+    // console.log("In get otp");
+    this.commonService.getOTP().subscribe((res: any) => {
+      // console.log(res);
+      this.OTP = res.toString();
+      const value = this.signUpForm.value.PhoneNumber;
+      // console.log(value);
+      this.commonService.sendOTP({
+        phone: '+91' + value.toString(),
+        body: 'Here your OTP - ' + res
+      }).subscribe((res1: any) => {
+        // console.log(res1);
+      },err => console.error(err));
+    }, err => console.error(err));
   }
 
 

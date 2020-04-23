@@ -156,7 +156,6 @@ export class UserformComponent implements OnInit {
 
   onVerifyOtp() {
     const enteredOTP = this.userform.value.otp;
-    const len = this.userform.value.otp.length;
     if(enteredOTP == this.OTP) {
       this.OTPVerify = true;
       alert('OTP Verified');
@@ -167,7 +166,7 @@ export class UserformComponent implements OnInit {
 
   onGetOtp() {
     // console.log(this.userform.value.phonenumber);
-    this.userService.getOTP().subscribe((res: any) => {
+    this.commonService.getOTP().subscribe((res: any) => {
       // console.log(res);
       this.OTP = res.toString();
       const value = this.userform.value.PhoneNumber;

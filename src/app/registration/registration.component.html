@@ -69,17 +69,19 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label for="number">WhatsApp Number<i class="astrik">*</i></label>
-                            <input type="text" class="form-control" formControlName="PhoneNumber" placeholder="Number"> <br>
+                            <input type="text" class="form-control" formControlName="PhoneNumber" placeholder="Number" *ngIf="!OTPVerify"  > <br>
+                            <input type="text" class="form-control" formControlName="PhoneNumber" placeholder="Number" *ngIf="OTPVerify" readonly > <br>
                         </div>
                         <div class="col-md-2 get-otp-button">
-                            <button type="button" class="btn btn-dark" (click)="onGetOtp()">Get OTP</button>
+                            <button type="button" class="btn btn-dark" (click)="onGetOtp()" *ngIf="!OTPVerify">Get OTP</button>
                         </div>
                         <div class="col-md-4">
                             <label for="otp">OTP<i class="astrik">*</i></label>
-                            <input type="password" class="form-control" formControlName="otp" placeholder="OTP"> <br>
+                            <input type="password" class="form-control" formControlName="otp" placeholder="OTP" *ngIf="!OTPVerify"> <br>
+                            <input type="password" class="form-control" formControlName="otp" placeholder="OTP" *ngIf="OTPVerify" readonly > <br>
                         </div>
                         <div class="col-md-2 verify-otp-button">
-                            <button type="button" class="btn btn-dark" (click)="onVerifyOtp()">Verify</button>
+                            <button type="button" class="btn btn-dark" (click)="onVerifyOtp()" *ngIf="!OTPVerify" >Verify</button>
                         </div>
                     </div>
                     <div class="row">

@@ -42,6 +42,12 @@ export class CommonService {
     })});
   }
 
+  getOTP() {
+    return this.http.post(Utils.getDefaultUrl() + 'Account/OTP', {}, {headers: {
+      'Authorization': Utils.getAPIToken()
+    }});
+  }
+
   whatsappUrl = 'https://api.chat-api.com/instance119365/sendMessage?token=epu7vymklbgy06u3';
 
   sendOTP(body) {
