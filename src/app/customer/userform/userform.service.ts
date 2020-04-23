@@ -20,4 +20,8 @@ export class UserformService {
 
     return this.http.post(Utils.getDefaultUrl() + 'Shopping/Order', params, {headers: this.header});
   }
+
+  getOTP() {
+    return this.http.post(Utils.getDefaultUrl() + 'Account/OTP', {}, {headers: this.header});
+  }
 }

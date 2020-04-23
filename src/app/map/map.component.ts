@@ -3,6 +3,7 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { google } from "google-maps";
 import { CommonService } from '../shared/common.service';
 import { MapService } from './map.service';
+import { Router } from '@angular/router';
 
 declare var google : google;
 
@@ -32,7 +33,7 @@ export class MapComponent implements OnInit {
   public searchElementRef: ElementRef;
   
   constructor(private mapsAPILoader: MapsAPILoader,private ngZone: NgZone,
-    private commonService: CommonService, private mapService: MapService) { }
+    private commonService: CommonService, private mapService: MapService, private route: Router) { }
 
   ngOnInit(): void {
     this.setCurrentLocation();
@@ -70,10 +71,10 @@ export class MapComponent implements OnInit {
           this.mapService.getNearbyRetailers(body).subscribe((res: any) => {
             console.log(res);
             if(res.errorcode == '0') {
-              this.retailerList = [];
-              res.StoreList.filter(store => {
-                this.retailerList.push({latitude: store.Latitude , longitude: store.Longitude, shopName: store.StoreName})
-              });
+              this.retailerList = res.StoreList;
+              // res.StoreList.filter(store => {
+              //   this.retailerList.push({latitude: store.Latitude , longitude: store.Longitude, shopName: store.StoreName})
+              // });
               console.log(this.retailerList);
             } else {
               alert(res['message']);
@@ -82,7 +83,12 @@ export class MapComponent implements OnInit {
         });
       });
     });
+   }
 
+   selectedRetailer(retailer) {
+    //  console.log(retailer);
+     localStorage.setItem('selectedRetailer', JSON.stringify(retailer));
+     this.route.navigate(['/customer/storedetail']);
    }
 
    private setCurrentLocation() {

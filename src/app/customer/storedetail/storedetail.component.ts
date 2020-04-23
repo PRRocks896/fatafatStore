@@ -11,6 +11,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class StoredetailComponent implements OnInit {
 
   fileName:string = 'Upload Order Image';
+  retailerDetail: any;
+  imageURL = Utils.getImages();
   @ViewChild('orderText',{static: true}) orderText: ElementRef;
 
   constructor(private titleService: Title, private router:Router, private activatedRoute: ActivatedRoute ) {
@@ -18,6 +20,9 @@ export class StoredetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.retailerDetail = JSON.parse(localStorage.getItem('selectedRetailer'));
+    console.log(this.retailerDetail);
+    this.imageURL = this.imageURL + `Store/${this.retailerDetail.StoreImage}`;
   }
 
   fileProgress(fileInput: any) {

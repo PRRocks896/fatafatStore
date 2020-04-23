@@ -20,13 +20,13 @@
     <div class="retailer-pins" *ngFor="let retailer of retailerList">
       <agm-marker
       (markerClick)="openWindow()"
-      [latitude]="retailer.latitude" 
-      [longitude]= "retailer.longitude"
+      [latitude]="retailer.Latitude" 
+      [longitude]= "retailer.Longitude"
       [iconUrl] = "iconUrl"
       >
       <agm-info-window>
-        <p>{{ retailer.shopName }}</p>
-        <a routerLink="customer/storedetail" routerLinkeActive="active">Visit Shop</a>
+        <p>{{ retailer.StoreName }}</p>
+        <button (click)="selectedRetailer(retailer)">Visit Shop</button>
       </agm-info-window>
     </agm-marker>
     </div>

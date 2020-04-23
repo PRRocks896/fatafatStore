@@ -2,17 +2,18 @@
     <!-- <div class="col-md-12"><h1>User Form</h1></div> -->
     <div class="user-form-content main-store">
         <div class="rk-heading">
-            <h4><strong>R.K. Store</strong></h4>
-            <small>13/327 near kalyanpura station<br>Delivery in 2hrs</small>
+            <h4><strong>{{retailerDetail.StoreName}}</strong></h4>
+            <small>{{retailerDetail.Address}}, {{retailerDetail.Address1}}<br>Delivery in {{retailerDetail.DeliveryOptions}}</small>
+            <!-- <small>13/327 near kalyanpura station<br>Delivery in 2hrs</small> -->
         </div>
         <div class="stores-images">
             <div class="row">
                 <div class="col-md-12">
                     <div class="main-store-img">
-                        <img src="images/watch.jpg" class="product-img">
+                        <img [src]="imageURL" class="product-img">
                     </div>
                 </div>
-                <div class="col-md-12">
+                <!-- <div class="col-md-12">
                     <div class="main-store-img">
                         <img src="images/watch.jpg" class="product-img">
                     </div>
@@ -21,7 +22,7 @@
                     <div class="main-store-img">
                         <img src="images/watch.jpg" class="product-img">
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="row store-text-box">
