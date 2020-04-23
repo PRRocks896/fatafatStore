@@ -26,4 +26,8 @@ export class RetailerService {
     return this.http.post(Utils.getDefaultUrl() + 'shopping/Inventory', params, {headers: this.header});
   }
 
+  getInventory(retailerID) {
+    return this.http.get(Utils.getDefaultUrl() + `Inventory?RetailerId=${retailerID}`, { headers: this.header});
+  }
+
 }

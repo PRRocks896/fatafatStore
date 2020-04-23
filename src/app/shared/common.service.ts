@@ -48,7 +48,7 @@ export class CommonService {
     }});
   }
 
-  whatsappUrl = 'https://api.chat-api.com/instance119365/sendMessage?token=epu7vymklbgy06u3';
+  whatsappUrl = Utils.getWhatsappURL();
 
   sendOTP(body) {
 

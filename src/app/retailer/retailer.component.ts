@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { flatten } from '@angular/compiler';
 import { RetailerService } from '../shared/retailer.service';
+import { Utils } from '../shared/utils';
 
 @Component({
   selector: 'app-retailer',
@@ -15,11 +16,32 @@ export class RetailerComponent implements OnInit {
   deleteImage:boolean = false;
   SelectedImage;
   inventoryDetail: string = '';
+  inventoryImage: any = [];
+  retailerDetail: any;
 
   constructor(private retailerService: RetailerService) { }
 
   ngOnInit(): void {
+    this.retailerDetail = JSON.parse(localStorage.getItem('retailer'));
+    this.fetchInventory(this.retailerDetail.RetailerID);
     // this.imageContanerDiv.nativeElement
+  }
+
+  fetchInventory(id) {
+    this.retailerService.getInventory(id).subscribe((res: any) => {
+      // console.log(res);
+      if(res.errorcode == '0') {
+        this.inventoryDetail = res.InventoryList[0].ItemName;
+        res.InventoryList.filter(itemImage => {
+          if(itemImage.ItemImage !== '') {
+            this.inventoryImage.push(Utils.getImages() + 'Inventory/' + itemImage.ItemImage);
+          }
+        })
+        // console.log(this.inventoryImage);
+        // this.inventoryImage = this.inventoryImage + res.InventoryList[1].ItemImage;
+        // console.log(this.inventoryImage);
+      }
+    }, err => console.error(err));
   }
 
   onSelectFile(event) {
@@ -39,18 +61,11 @@ export class RetailerComponent implements OnInit {
     this.deleteImage = true;
   }
 
-  uploadIamge() {
-    // this.retailerService.storeImage(this.SelectedImage).subscribe((res: any) => {
-    //   console.log(res);
-    // }, err => {
-    //   console.error(err);
-    // })
-  }
   submitInventory() {
     // console.log(this.inventoryDetail);
     // console.log(this.SelectedImage);
     const body = {
-      RetailerID: "1",
+      RetailerID: this.retailerDetail.RetailerID,
       ItemName: this.inventoryDetail
     }
     this.retailerService.storeInventory(body, this.SelectedImage).subscribe((res: any) => {
@@ -59,6 +74,7 @@ export class RetailerComponent implements OnInit {
         this.SelectedImage = null;
         this.url = '';
         alert(res['message']);
+        this.fetchInventory(this.retailerDetail.RetailerID);
         // this.router.navigate(['/']);
       } else {
         

@@ -6,6 +6,7 @@ export class Utils {
       return 'http://fatafatapi.epsilonium.com/api/v1.0/';
       }
     static getImages() {
+      // return 'http://img.fatafat.store/';
       // return 'https://api.fatafat.store/images/'
       return 'http://fatafatapi.epsilonium.com/images/'; // store,inventory, order
     }
@@ -16,11 +17,18 @@ export class Utils {
       // return 'AIzaSyBvdfdFYbmQJPRAebQh-bO0sYWj8X74LEU';
       // return 'AIzaSyDXq-ZCLsJK-_DXcDZrEXey2VKYgp0lJs4';
     }
+
+    static getWhatsappURL() {
+      return 'https://api.chat-api.com/instance119365/sendMessage?token=epu7vymklbgy06u3';
+    }
     
     static googleAPIKey() {
       return 'https://maps.googleapis.com/maps/api/geocode/json?';
     }
 
+    static getGoogleMapURL() {
+      return 'http://www.google.com/maps/place/';
+    }
     static getDistance() {
       return 10;
     }
