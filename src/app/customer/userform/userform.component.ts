@@ -41,17 +41,22 @@ export class UserformComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // console.log('History: ', history.state);
+
+    const passDetail = history.state;
     // this.setCurrentLocation();
+    this.storeIamge = passDetail.orderImage;
+    // console.log(passDetail);
     this.getState();
     this.userform = new FormGroup({
-      'ItemName': new FormControl('', Validators.required),
+      'ItemName': new FormControl(passDetail.orderDetail, Validators.required),
       'FirstName': new FormControl('', Validators.required),
       'LastName': new FormControl('', Validators.required),
       'PhoneNumber': new FormControl('', [Validators.required, 
         Validators.pattern('[0-9]*'),
         Validators.min(0), Validators.maxLength(10),
         Validators.minLength(10)]),
-      'RetailerID': new FormControl('1', Validators.required),
+      'RetailerID': new FormControl('', Validators.required),
       'Address': new FormControl('', Validators.required),
       'Address1': new FormControl('', Validators.required),
       'City': new FormControl('', Validators.required),
@@ -62,7 +67,7 @@ export class UserformComponent implements OnInit {
       'Longitude': new FormControl('', Validators.required),
     });
     this.selectedRetailer = JSON.parse(localStorage.getItem('selectedRetailer'));
-    this.userform.patchValue({retailerID: this.selectedRetailer.RetailerID});
+    this.userform.patchValue({RetailerID: this.selectedRetailer.RetailerID});
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       // this.setCurrentLocation();
@@ -169,7 +174,7 @@ export class UserformComponent implements OnInit {
   onGetOtp() {
     // console.log(this.userform.value.phonenumber);
     this.commonService.getOTP().subscribe((res: any) => {
-      // console.log(res);
+      console.log(res);
       this.OTP = res.toString();
       const value = this.userform.value.PhoneNumber;
       // console.log(value);
@@ -177,7 +182,7 @@ export class UserformComponent implements OnInit {
         phone: '+91' + value.toString(),
         body: 'Here your OTP - ' + res
       }).subscribe((res1: any) => {
-        // console.log(res1);
+        console.log(res1);
       },err => console.error(err));
     }, err => console.error(err));
   }

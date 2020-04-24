@@ -13,6 +13,9 @@ export class StoredetailComponent implements OnInit {
   fileName:string = 'Upload Order Image';
   retailerDetail: any;
   imageURL = Utils.getImages();
+  orderDetail: any;
+  orderFile: any;
+
   @ViewChild('orderText',{static: true}) orderText: ElementRef;
 
   constructor(private titleService: Title, private router:Router, private activatedRoute: ActivatedRoute ) {
@@ -29,10 +32,13 @@ export class StoredetailComponent implements OnInit {
     // let file = fileInput.targe
   }
 
-  onChange(file: HTMLInputElement) {
-    let filePathArray = file.value.split('\\');
-    let fileName = filePathArray[filePathArray.length-1];
-    this.fileName = fileName
+  onChange(event) {
+    
+    this.orderFile = event.target.files[0];
+    // console.log(this.orderFile);
+    // let filePathArray = file.value.split('\\');
+    // let fileName = filePathArray[filePathArray.length-1];
+    this.fileName = this.orderFile.name;
   }
 
   orderExists() {
@@ -43,7 +49,10 @@ export class StoredetailComponent implements OnInit {
   }
 
   onNextPage() {
-    this.router.navigate(['customer/userform']);
+    // console.log(this.orderDetail);
+    // console.log(this.orderFile);
+    this.router.navigateByUrl('/customer/userform', { state: { orderDetail: this.orderDetail, orderImage: this.orderFile }});
+    // this.router.navigate(['customer/userform']);
   }
   // Dont remove the below function checks for any keypresses in text feild
   onTextEnter(orderText: HTMLInputElement) {
