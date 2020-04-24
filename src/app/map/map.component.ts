@@ -4,6 +4,7 @@ import { google } from "google-maps";
 import { CommonService } from '../shared/common.service';
 import { MapService } from './map.service';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 declare var google : google;
 
@@ -33,7 +34,8 @@ export class MapComponent implements OnInit {
   public searchElementRef: ElementRef;
   
   constructor(private mapsAPILoader: MapsAPILoader,private ngZone: NgZone,
-    private commonService: CommonService, private mapService: MapService, private route: Router) { }
+    private commonService: CommonService, private mapService: MapService,
+    private route: Router, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.setCurrentLocation();
@@ -41,9 +43,10 @@ export class MapComponent implements OnInit {
     // this.getAllRetailers();
     // console.log(this.retailerList);
 
-
+    this.spinner.show();
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
+      this.spinner.hide();
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
 

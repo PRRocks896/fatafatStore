@@ -8,6 +8,7 @@ import { RegisterationService } from './registeration.service';
 import { Router } from '@angular/router';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { CommonService } from '../shared/common.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-registration',
@@ -41,7 +42,8 @@ export class RegistrationComponent implements OnInit {
     private ngZone: NgZone,
     private commonService: CommonService,
     private registrationService: RegisterationService, private router: Router,
-    private mapsAPILoader: MapsAPILoader) {
+    private mapsAPILoader: MapsAPILoader,
+    private spinner: NgxSpinnerService) {
     this.titleService.setTitle('Registration Retailer' + Utils.getAppName());
   }
 
@@ -97,15 +99,19 @@ export class RegistrationComponent implements OnInit {
   }
 
   setState() {
+    this.spinner.show();
     this.commonService.getState().subscribe((res: any) => {
       // console.log(res);
+      this.spinner.hide();
       if(res.errorcode == '0') {
         this.stateDetail = res.StateList;
         // console.log(this.stateDetail);
       } else {
         alert(res.message);
       }
-    }, err => console.error(err));
+    }, err => {
+      this.spinner.hide();
+      console.error(err)});
   }
 
   addState(stateID) {
@@ -141,9 +147,11 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit() {
+    this.spinner.show();
     // console.log(this.signUpForm.value);
     // console.log(this.storeIamge);
     this.registrationService.addNewRetailer(this.signUpForm.value, this.storeIamge).subscribe((res: any) => {
+      this.spinner.hide();
       if(res['errorcode'] == '0')  {
         this.signUpForm.reset();
         alert(res['message']);
@@ -152,6 +160,7 @@ export class RegistrationComponent implements OnInit {
         alert(res['message']);
       }
     }, (err: any) => {
+      this.spinner.hide();
       alert(err.error.message);
       console.error(err);
     })

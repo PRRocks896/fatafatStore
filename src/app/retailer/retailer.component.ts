@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { flatten } from '@angular/compiler';
 import { RetailerService } from '../shared/retailer.service';
 import { Utils } from '../shared/utils';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-retailer',
@@ -19,7 +20,7 @@ export class RetailerComponent implements OnInit {
   inventoryImage: any = [];
   retailerDetail: any;
 
-  constructor(private retailerService: RetailerService) { }
+  constructor(private retailerService: RetailerService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.retailerDetail = JSON.parse(localStorage.getItem('retailer'));
@@ -29,7 +30,9 @@ export class RetailerComponent implements OnInit {
   }
 
   fetchInventory(id) {
+    this.spinner.show();
     this.retailerService.getInventory(id).subscribe((res: any) => {
+      this.spinner.hide();
       // console.log(res);
       if(res.errorcode == '0') {
         this.inventoryImage = [];
@@ -43,7 +46,9 @@ export class RetailerComponent implements OnInit {
         // this.inventoryImage = this.inventoryImage + res.InventoryList[1].ItemImage;
         // console.log(this.inventoryImage);
       }
-    }, err => console.error(err));
+    }, err => {
+      this.spinner.hide();
+      console.error(err)});
   }
 
   onSelectFile(event) {
@@ -64,6 +69,7 @@ export class RetailerComponent implements OnInit {
   }
 
   submitInventory() {
+    this.spinner.show();
     // console.log(this.inventoryDetail);
     // console.log(this.SelectedImage);
     const body = {
@@ -71,6 +77,7 @@ export class RetailerComponent implements OnInit {
       ItemName: this.inventoryDetail
     }
     this.retailerService.storeInventory(body, this.SelectedImage).subscribe((res: any) => {
+      this.spinner.hide();
       if(res['errorcode'] == '0')  {
         this.inventoryDetail = '';
         this.SelectedImage = null;
@@ -83,6 +90,7 @@ export class RetailerComponent implements OnInit {
         alert(res['message']);
       }
     }, err => {
+      this.spinner.hide();
       alert(err.error.message);
       console.error(err)
     });

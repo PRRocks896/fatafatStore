@@ -6,6 +6,7 @@ import { CommonService } from 'src/app/shared/common.service';
 import { UserformService } from './userform.service';
 import { Router } from '@angular/router';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-userform',
@@ -36,7 +37,8 @@ export class UserformComponent implements OnInit {
 
   constructor(private titleService: Title, private commonService: CommonService,
     private userService: UserformService, private router: Router,
-    private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
+    private mapsAPILoader: MapsAPILoader, private ngZone: NgZone,
+    private spinner: NgxSpinnerService) {
     this.titleService.setTitle('User Form' + Utils.getAppName());
   }
 
@@ -97,14 +99,19 @@ export class UserformComponent implements OnInit {
   }
 
   getState() {
+    this.spinner.show();
     this.commonService.getState().subscribe((res: any) => {
+      this.spinner.hide();
       if(res.errorcode == '0') {
         this.stateDetail = res.StateList;
         // console.log(this.stateDetail);
       } else {
         alert(res.message);
       }
-    }, err => console.error(err));
+    }, err => {
+      this.spinner.hide();
+      console.error(err)
+    });
   }
 
   addState(stateID) {
@@ -144,8 +151,9 @@ export class UserformComponent implements OnInit {
   onSubmit() {
     // console.log(this.userform.value);
     if(this.userform.valid) {
-      
+      this.spinner.show();
       this.userService.postOrder(this.userform.value, this.storeIamge).subscribe((res: any) => {
+        this.spinner.hide();
         // console.log(res);
         if(res['errorcode'] == '0')  {
           this.userform.reset();
@@ -156,6 +164,7 @@ export class UserformComponent implements OnInit {
         }
       }, err => console.error(err));
     } else {
+      this.spinner.hide();
       alert('Please fill all required detail')
     }
     
@@ -172,8 +181,10 @@ export class UserformComponent implements OnInit {
   }
 
   onGetOtp() {
+    this.spinner.show();
     // console.log(this.userform.value.phonenumber);
     this.commonService.getOTP().subscribe((res: any) => {
+      this.spinner.hide();
       console.log(res);
       this.OTP = res.toString();
       const value = this.userform.value.PhoneNumber;
@@ -184,7 +195,9 @@ export class UserformComponent implements OnInit {
       }).subscribe((res1: any) => {
         console.log(res1);
       },err => console.error(err));
-    }, err => console.error(err));
+    }, err => {
+      this.spinner.hide();
+      console.error(err)});
   }
 
   markerDragEnd($event: MouseEvent) {

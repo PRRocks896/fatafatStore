@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, OnChanges } from '@angular/co
 import { Title } from '@angular/platform-browser';
 import { Utils } from 'src/app/shared/utils';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-storedetail',
@@ -18,14 +19,17 @@ export class StoredetailComponent implements OnInit {
 
   @ViewChild('orderText',{static: true}) orderText: ElementRef;
 
-  constructor(private titleService: Title, private router:Router, private activatedRoute: ActivatedRoute ) {
+  constructor(private titleService: Title, private router:Router, private activatedRoute: ActivatedRoute,
+    private spinner: NgxSpinnerService) {
     this.titleService.setTitle('Store Detail' + Utils.getAppName());
   }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.retailerDetail = JSON.parse(localStorage.getItem('selectedRetailer'));
     console.log(this.retailerDetail);
     this.imageURL = this.imageURL + `Store/${this.retailerDetail.StoreImage}`;
+    this.spinner.hide();
   }
 
   fileProgress(fileInput: any) {
