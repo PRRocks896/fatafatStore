@@ -112,6 +112,7 @@ export class RegistrationComponent implements OnInit {
     // console.log(stateID);
     this.signUpForm.patchValue({StateID: stateID});
   }
+
   onSelectFile(event) {
     this.storeIamge = event.target.files[0];
     if (event.target.files && event.target.files[0]) {
@@ -190,8 +191,8 @@ export class RegistrationComponent implements OnInit {
     // console.log(($event)['coords']);
     this.latitude = $event['coords'].lat;
     this.longitude = $event['coords'].lng;
-    this.signUpForm.patchValue({Latitude: this.longitude});
-    this.signUpForm.patchValue({Longitude: this.longitude});
+    this.signUpForm.patchValue({Latitude: this.latitude.toString()});
+    this.signUpForm.patchValue({Longitude: this.longitude.toString()});
     // this.getAddress(this.latitude, this.longitude);
   }
   // getStoreAddress() {
