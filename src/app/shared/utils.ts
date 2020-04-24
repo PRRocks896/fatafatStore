@@ -2,13 +2,13 @@
 
 export class Utils {
     static getDefaultUrl() {
-      // return 'https://api.fatafat.store/api/v1.0/'  
-      return 'http://fatafatapi.epsilonium.com/api/v1.0/';
+      return 'https://api.fatafat.store/api/v1.0/'  
+      // return 'http://fatafatapi.epsilonium.com/api/v1.0/';
       }
     static getImages() {
-      // return 'http://img.fatafat.store/';
+      return 'http://img.fatafat.store/';
       // return 'https://api.fatafat.store/images/'
-      return 'http://fatafatapi.epsilonium.com/images/'; // store,inventory, order
+      // return 'http://fatafatapi.epsilonium.com/images/'; // store,inventory, order
     }
     
     static getGoogleMapKey() {

@@ -14,8 +14,8 @@ export class AppComponent {
       // console.log(res);
       localStorage.setItem('token', res['access_token']);
     },(err: any) => {
-      alert(err.error.message);
-      // console.error(err);
+      // alert(err.error.message);
+      console.error(err);
     })
     
     // this.commonService.sendMsg({

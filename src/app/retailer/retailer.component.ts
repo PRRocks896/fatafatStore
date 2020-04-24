@@ -23,6 +23,7 @@ export class RetailerComponent implements OnInit {
 
   ngOnInit(): void {
     this.retailerDetail = JSON.parse(localStorage.getItem('retailer'));
+    // console.log(this.retailerDetail);
     this.fetchInventory(this.retailerDetail.RetailerID);
     // this.imageContanerDiv.nativeElement
   }
@@ -31,6 +32,7 @@ export class RetailerComponent implements OnInit {
     this.retailerService.getInventory(id).subscribe((res: any) => {
       // console.log(res);
       if(res.errorcode == '0') {
+        this.inventoryImage = [];
         this.inventoryDetail = res.InventoryList[0].ItemName;
         res.InventoryList.filter(itemImage => {
           if(itemImage.ItemImage !== '') {
