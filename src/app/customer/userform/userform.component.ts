@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 
+import * as m from 'moment';
+
 @Component({
   selector: 'app-userform',
   templateUrl: './userform.component.html',
@@ -164,28 +166,37 @@ export class UserformComponent implements OnInit {
         this.spinner.show();
         this.userService.postOrder(this.userform.value, this.storeIamge).subscribe((res: any) => {
           this.spinner.hide();
-          console.log(res);
+          // console.log(res);
           if(res['errorcode'] == '0')  {
             // this.userform.reset();
             
             // console.log(this.userform.value);
             // console.log(this.storeIamge);
             let OrderImageURL = ''
+            let OrderID = '';
             if(this.storeIamge) {
-              let imgName = res.message.split('_')[1];
+              let imgName = res.message.split('_')[2];
+              OrderID = res.message.split('_')[1];
               imgName = imgName.split(',')[0];
               OrderImageURL = Utils.getImages() + 'Order/' + imgName || '';
             }
-            console.log(OrderImageURL);
+            // console.log(OrderID);
+            // console.log(OrderImageURL);
             const data = {
               phone: '+91' + Utils.getWhatsappAdminNumber(), // this.userform.value.PhoneNumber,
               body: `
-                Order_Discription: ${this.userform.value.ItemName},
-                Order_Image: ${OrderImageURL},
-                Customer_Name: ${this.userform.value.FirstName + ' ' + this.userform.value.LastName},
-                Customer_Number: ${this.userform.value.PhoneNumber},
-                Customer_Address: ${this.userform.value.Address}, ${this.userform.value.Address1}
-                Location_Link: ${Utils.getGoogleMapURL()+this.userform.value.Latitude+','+this.userform.value.Longitude}`
+Fatafat Grocery Order - Order# ${OrderID} received on ${m().add(1, 'days').format('DD/MM/YYYY')},
+*Customer:* 
+${this.userform.value.FirstName} ${this.userform.value.LastName},
+${this.userform.value.Address},
+${this.userform.value.Address1},
+${this.userform.value.City} - ${this.userform.value.PinCode}
+Phone: ${this.userform.value.PhoneNumber}
+Location_Link: ${Utils.getGoogleMapURL()+this.userform.value.Latitude+','+this.userform.value.Longitude}
+
+*Order Items:*
+${this.userform.value.ItemName},
+Order_Image: ${OrderImageURL},`
             }
             this.spinner.show();
             this.commonService.sendMsg(data).subscribe((res1: any) => {
@@ -247,7 +258,7 @@ export class UserformComponent implements OnInit {
         body: 'Here your OTP - ' + res
       }).subscribe((res1: any) => {
         this.spinner.hide();
-        console.log(res1);
+        // console.log(res1);
       },err => console.error(err));
     }, err => {
       this.spinner.hide();
@@ -262,11 +273,11 @@ export class UserformComponent implements OnInit {
   }
 
   markerDragEnd($event: MouseEvent) {
-    console.log(($event)['coords']);
+    // console.log(($event)['coords']);
     this.latitude = $event['coords'].lat;
     this.longitude = $event['coords'].lng;
-    this.userform.patchValue({latitude: this.longitude});
-    this.userform.patchValue({longitude: this.longitude});
+    this.userform.patchValue({Latitude: this.latitude});
+    this.userform.patchValue({Longitude: this.longitude});
     // this.getAddress(this.latitude, this.longitude);
   }
 

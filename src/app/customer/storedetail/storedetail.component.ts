@@ -30,14 +30,14 @@ export class StoredetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.spinner.show();
+    // this.spinner.show();
     this.retailerDetail = JSON.parse(localStorage.getItem('selectedRetailer'));
     // console.log(this.retailerDetail);
     if(this.retailerDetail.StoreImage !== "") {
       this.imageURL = this.imageURL + `Store/${this.retailerDetail.StoreImage}`;
     }
     this.fetchInventoryImage(this.retailerDetail.RetailerID);
-    this.spinner.hide();
+    // this.spinner.hide();
   }
 
   fetchInventoryImage(id) {
@@ -49,11 +49,11 @@ export class StoredetailComponent implements OnInit {
         if(res.errorcode == '0') {
           
           this.inventoryImage = [];
-          this.inventoryImage.push({
-            itemID: '',
-            image: Utils.getImages() + `Store/${this.retailerDetail.StoreImage}`
-          });
-          console.log(this.inventoryImage);
+          // this.inventoryImage.push({
+          //   itemID: '',
+          //   image: Utils.getImages() + `Store/${this.retailerDetail.StoreImage}`
+          // });
+          // console.log(this.inventoryImage);
           this.inventoryDetail = res.InventoryList[0].ItemName;
           res.InventoryList.map(itemImage => {
             // console.log(itemImage);
