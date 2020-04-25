@@ -20,6 +20,7 @@ export class MapService {
   }
 
   getNearbyRetailers(body) {
+    // console.log(this.header);
     return this.http.get(Utils.getDefaultUrl() + `store?Location=${encodeURIComponent(body.location)}&Latitude=${body.latitude}&Longitude=${body.longitude}&Distance=${Utils.getDistance()}`, { headers: this.header});
   }
 

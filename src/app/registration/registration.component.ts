@@ -19,18 +19,20 @@ export class RegistrationComponent implements OnInit {
   signUpForm:FormGroup;
 
   url:any = '';
-  latitude = 26.5123;
-  longitude = 80.2329;
-  zoom = 15;
+  latitude = 20.5937;
+  longitude = 78.9629;
+  zoom = 5;
   geoCoder;
 
   edited = false;
   stateDetail: any = [];
+  deliveryDetail: any = [];
   storeIamge: any;
 
   locationError: string;
   
   address: any = '';
+  deliveryID: any = [];
 
   OTP: any = '';
   OTPVerify = false;
@@ -51,6 +53,7 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.setCurrentLocation();
     this.setState();
+    this.getDeliveryOptions();
     this.signUpForm = new FormGroup({
       'StoreName': new FormControl('',),
       'Password': new FormControl('',),
@@ -92,10 +95,26 @@ export class RegistrationComponent implements OnInit {
           this.signUpForm.patchValue({Latitude: this.latitude.toString()});
           this.signUpForm.patchValue({Longitude: this.longitude.toString()});
           this.signUpForm.patchValue({Location: place.address_components[1].long_name});
-          this.zoom = 12;
+          this.zoom = 5;
         });
       });
     });
+  }
+
+  getDeliveryOptions() {
+    this.spinner.show();
+    this.commonService.getDeliveryOptions().subscribe((res: any) => {
+      this.spinner.hide();
+      // console.log('Delivery Options: ',res);
+      if(res.errorcode == '0') {
+        this.deliveryDetail = res.DeliveryTypeList;
+      } else {
+        alert(res.message);
+      }
+    }, err => {
+      this.spinner.hide();
+      console.error(err)
+    })
   }
 
   setState() {
@@ -117,6 +136,14 @@ export class RegistrationComponent implements OnInit {
   addState(stateID) {
     // console.log(stateID);
     this.signUpForm.patchValue({StateID: stateID});
+  }
+
+  addDelivery(deliveryID) {
+    // console.log(deliveryID);
+    const id = deliveryID.toString() + ',';
+    console.log(id);
+    this.signUpForm.patchValue({DeliveryOptions: id});
+
   }
 
   onSelectFile(event) {
@@ -141,29 +168,38 @@ export class RegistrationComponent implements OnInit {
     //     this.zoom = 15;
     //   });
     // }
-    this.latitude = 26.5123;
-      this.longitude = 80.2329;
-      this.zoom = 15;
+    this.latitude = 20.5937;
+    this.longitude = 78.9629;
+    this.zoom = 5;
   }
 
   onSubmit() {
     this.spinner.show();
     // console.log(this.signUpForm.value);
     // console.log(this.storeIamge);
-    this.registrationService.addNewRetailer(this.signUpForm.value, this.storeIamge).subscribe((res: any) => {
-      this.spinner.hide();
-      if(res['errorcode'] == '0')  {
-        this.signUpForm.reset();
-        alert(res['message']);
-        this.router.navigate(['/']);
-      } else {
-        alert(res['message']);
-      }
-    }, (err: any) => {
-      this.spinner.hide();
-      alert(err.error.message);
-      console.error(err);
-    })
+    if(Utils.checkTokenValid()) {
+      this.registrationService.addNewRetailer(this.signUpForm.value, this.storeIamge).subscribe((res: any) => {
+        this.spinner.hide();
+        if(res['errorcode'] == '0')  {
+          this.signUpForm.reset();
+          alert(res['message']);
+          this.router.navigate(['/']);
+        } else {
+          this.OTPVerify = false;
+          alert(res['message']);
+        }
+      }, (err: any) => {
+        this.OTPVerify = false;
+        this.spinner.hide();
+        alert(err.error.message);
+        console.error(err);
+      })
+    } else {
+      this.commonService.getToken().subscribe((res: any) => {
+        Utils.setToken(res);
+        this.onSubmit();
+      })
+    }
   }
 
   onVerifyOtp() {
@@ -179,18 +215,25 @@ export class RegistrationComponent implements OnInit {
 
   onGetOtp() {
     // console.log("In get otp");
-    this.commonService.getOTP().subscribe((res: any) => {
-      // console.log(res);
-      this.OTP = res.toString();
-      const value = this.signUpForm.value.PhoneNumber;
-      // console.log(value);
-      this.commonService.sendOTP({
-        phone: '+91' + value.toString(),
-        body: 'Here your OTP - ' + res
-      }).subscribe((res1: any) => {
-        // console.log(res1);
-      },err => console.error(err));
-    }, err => console.error(err));
+    if(Utils.checkTokenValid()) {
+      this.commonService.getOTP().subscribe((res: any) => {
+        // console.log(res);
+        this.OTP = res.toString();
+        const value = this.signUpForm.value.PhoneNumber;
+        // console.log(value);
+        this.commonService.sendOTP({
+          phone: '+91' + value.toString(),
+          body: 'Here your OTP - ' + res
+        }).subscribe((res1: any) => {
+          // console.log(res1);
+        },err => console.error(err));
+      }, err => console.error(err));
+    } else {
+      this.commonService.getToken().subscribe((res: any) => {
+        Utils.setToken(res);
+        this.onGetOtp();
+      })
+    }
   }
 
 

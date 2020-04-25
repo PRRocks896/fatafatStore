@@ -3,6 +3,8 @@ import { flatten } from '@angular/compiler';
 import { RetailerService } from '../shared/retailer.service';
 import { Utils } from '../shared/utils';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { CommonService } from '../shared/common.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-retailer',
@@ -20,7 +22,10 @@ export class RetailerComponent implements OnInit {
   inventoryImage: any = [];
   retailerDetail: any;
 
-  constructor(private retailerService: RetailerService, private spinner: NgxSpinnerService) { }
+  constructor(private retailerService: RetailerService, private spinner: NgxSpinnerService,
+    private commonService: CommonService, private title: Title) {
+      this.title.setTitle('Retailer' + Utils.getAppName());
+    }
 
   ngOnInit(): void {
     this.retailerDetail = JSON.parse(localStorage.getItem('retailer'));
@@ -30,25 +35,36 @@ export class RetailerComponent implements OnInit {
   }
 
   fetchInventory(id) {
-    this.spinner.show();
-    this.retailerService.getInventory(id).subscribe((res: any) => {
-      this.spinner.hide();
-      // console.log(res);
-      if(res.errorcode == '0') {
-        this.inventoryImage = [];
-        this.inventoryDetail = res.InventoryList[0].ItemName;
-        res.InventoryList.filter(itemImage => {
-          if(itemImage.ItemImage !== '') {
-            this.inventoryImage.push(Utils.getImages() + 'Inventory/' + itemImage.ItemImage);
-          }
-        })
-        // console.log(this.inventoryImage);
-        // this.inventoryImage = this.inventoryImage + res.InventoryList[1].ItemImage;
-        // console.log(this.inventoryImage);
-      }
-    }, err => {
-      this.spinner.hide();
-      console.error(err)});
+    if(Utils.checkTokenValid()) {
+      this.spinner.show();
+      this.retailerService.getInventory(id).subscribe((res: any) => {
+        this.spinner.hide();
+        // console.log(res);
+        if(res.errorcode == '0') {
+          this.inventoryImage = [];
+          this.inventoryDetail = res.InventoryList[0].ItemName;
+          res.InventoryList.filter(itemImage => {
+            if(itemImage.ItemImage !== '') {
+              this.inventoryImage.push({
+                itemID: itemImage.ItemID,
+                image: Utils.getImages() + 'Inventory/' + itemImage.ItemImage
+              });
+            }
+          })
+          // console.log(this.inventoryImage);
+          // this.inventoryImage = this.inventoryImage + res.InventoryList[1].ItemImage;
+          // console.log(this.inventoryImage);
+        }
+      }, err => {
+        this.spinner.hide();
+        console.error(err)
+      });
+    } else {
+      this.commonService.getToken().subscribe((res: any) => {
+        Utils.setToken(res);
+        this.fetchInventory(this.retailerDetail.RetailerID);
+      })
+    }
   }
 
   onSelectFile(event) {
@@ -64,8 +80,29 @@ export class RetailerComponent implements OnInit {
       }
     }
   }
-  onDeleteImage(){
-    this.deleteImage = true;
+  onDeleteImage(imageName){
+    // console.log(Utils.checkTokenValid());
+    if(Utils.checkTokenValid()) {
+      const index = this.inventoryImage.indexOf(imageName);
+      if (index !== -1) {
+        this.inventoryImage.splice(index, 1);
+        this.retailerService.deleteItemImage(imageName.itemID).subscribe((res: any) => {
+          this.fetchInventory(this.retailerDetail.RetailerID);
+        });
+      }
+    } else {
+      this.commonService.getToken().subscribe((res: any) => {
+        Utils.setToken(res);
+        const index = this.inventoryImage.indexOf(imageName);
+        if (index !== -1) {
+          this.inventoryImage.splice(index, 1);
+          this.retailerService.deleteItemImage(imageName.itemID).subscribe((res: any) => {
+            this.fetchInventory(this.retailerDetail.RetailerID);
+          });
+        }
+      })
+    }
+    // this.deleteImage = true;
   }
 
   submitInventory() {

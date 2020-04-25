@@ -16,9 +16,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class UserformComponent implements OnInit {
 
   userform: FormGroup;
-  latitude:number = 26.5123;
-  longitude:number = 80.2329;
-  zoom:number = 15;
+  latitude:number = 20.5937;
+  longitude:number = 78.9629;
+  zoom:number = 5;
   geoCoder;
   locationError: String = '';
   address: any = '';
@@ -39,7 +39,7 @@ export class UserformComponent implements OnInit {
     private userService: UserformService, private router: Router,
     private mapsAPILoader: MapsAPILoader, private ngZone: NgZone,
     private spinner: NgxSpinnerService) {
-    this.titleService.setTitle('User Form' + Utils.getAppName());
+    this.titleService.setTitle('User Order Form' + Utils.getAppName());
   }
 
   ngOnInit(): void {
@@ -89,7 +89,7 @@ export class UserformComponent implements OnInit {
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
-          this.userform.patchValue({Latitude: this.longitude.toString()});
+          this.userform.patchValue({Latitude: this.latitude.toString()});
           this.userform.patchValue({Longitude: this.longitude.toString()});
           this.userform.patchValue({Location: place.formatted_address});
           this.zoom = 12;
@@ -100,18 +100,26 @@ export class UserformComponent implements OnInit {
 
   getState() {
     this.spinner.show();
-    this.commonService.getState().subscribe((res: any) => {
-      this.spinner.hide();
-      if(res.errorcode == '0') {
-        this.stateDetail = res.StateList;
-        // console.log(this.stateDetail);
-      } else {
-        alert(res.message);
-      }
-    }, err => {
-      this.spinner.hide();
-      console.error(err)
-    });
+      if(Utils.checkTokenValid()) {
+      this.commonService.getState().subscribe((res: any) => {
+        this.spinner.hide();
+        if(res.errorcode == '0') {
+          this.stateDetail = res.StateList;
+          // console.log(this.stateDetail);
+        } else {
+          alert(res.message);
+        }
+      }, err => {
+        this.spinner.hide();
+        console.error(err)
+      });
+    } else {
+      this.commonService.getToken().subscribe((res: any) => {
+        Utils.setToken(res);
+        this.getState();
+      })
+      
+    }
   }
 
   addState(stateID) {
@@ -138,7 +146,7 @@ export class UserformComponent implements OnInit {
       navigator.geolocation.getCurrentPosition((position) => {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
-        this.zoom = 15;
+        this.zoom = 5;
       });
     }
   }
@@ -150,22 +158,65 @@ export class UserformComponent implements OnInit {
 
   onSubmit() {
     // console.log(this.userform.value);
-    if(this.userform.valid) {
-      this.spinner.show();
-      this.userService.postOrder(this.userform.value, this.storeIamge).subscribe((res: any) => {
-        this.spinner.hide();
-        // console.log(res);
-        if(res['errorcode'] == '0')  {
-          this.userform.reset();
-          alert(res['message']);
-          this.router.navigate(['/']);
-        } else {
-          alert(res['message']);
-        }
-      }, err => console.error(err));
+    // console.log(this.storeIamge);
+    if(Utils.checkTokenValid()) {
+      // if(this.userform.valid) {
+        this.spinner.show();
+        this.userService.postOrder(this.userform.value, this.storeIamge).subscribe((res: any) => {
+          this.spinner.hide();
+          console.log(res);
+          if(res['errorcode'] == '0')  {
+            // this.userform.reset();
+            
+            // console.log(this.userform.value);
+            // console.log(this.storeIamge);
+            let OrderImageURL = ''
+            if(this.storeIamge) {
+              let imgName = res.message.split('_')[1];
+              imgName = imgName.split(',')[0];
+              OrderImageURL = Utils.getImages() + 'Order/' + imgName || '';
+            }
+            console.log(OrderImageURL);
+            const data = {
+              phone: '+91' + Utils.getWhatsappAdminNumber(), // this.userform.value.PhoneNumber,
+              body: `
+                Order_Discription: ${this.userform.value.ItemName},
+                Order_Image: ${OrderImageURL},
+                Customer_Name: ${this.userform.value.FirstName + ' ' + this.userform.value.LastName},
+                Customer_Number: ${this.userform.value.PhoneNumber},
+                Customer_Address: ${this.userform.value.Address}, ${this.userform.value.Address1}
+                Location_Link: ${Utils.getGoogleMapURL()+this.userform.value.Latitude+','+this.userform.value.Longitude}`
+            }
+            this.spinner.show();
+            this.commonService.sendMsg(data).subscribe((res1: any) => {
+              this.spinner.hide();
+              this.userform.reset();
+              alert(res.message.split('_')[0]);
+              // console.log(res1);
+              this.router.navigate(['/']);
+            },err => {
+              this.spinner.hide();
+              // console.error(err);
+            })
+            
+          } else {
+            this.spinner.hide();
+            alert(res['message']);
+          }
+        }, err => {
+          this.spinner.hide();
+          console.error(err)
+        });
+      // } else {
+      //   this.spinner.hide();
+      //   alert('Please fill all required detail')
+      // }
     } else {
       this.spinner.hide();
-      alert('Please fill all required detail')
+      this.commonService.getToken().subscribe((res: any) => {
+        Utils.setToken(res);
+        this.onSubmit();
+      })
     }
     
   }
@@ -181,27 +232,37 @@ export class UserformComponent implements OnInit {
   }
 
   onGetOtp() {
+    if(Utils.checkTokenValid()) {
     this.spinner.show();
     // console.log(this.userform.value.phonenumber);
     this.commonService.getOTP().subscribe((res: any) => {
-      this.spinner.hide();
-      console.log(res);
+      // this.spinner.hide();
+      // this.spinner.show();
+      // console.log(res);
       this.OTP = res.toString();
       const value = this.userform.value.PhoneNumber;
       // console.log(value);
       this.commonService.sendOTP({
-        phone: '+91' + value.toString(),
+        phone: '+91' +  value.toString(),
         body: 'Here your OTP - ' + res
       }).subscribe((res1: any) => {
+        this.spinner.hide();
         console.log(res1);
       },err => console.error(err));
     }, err => {
       this.spinner.hide();
-      console.error(err)});
+      console.error(err)
+    });
+    } else {
+      this.commonService.getToken().subscribe((res: any) => {
+        Utils.setToken(res);
+        this.onGetOtp();
+      })
+    }
   }
 
   markerDragEnd($event: MouseEvent) {
-    // console.log(($event)['coords']);
+    console.log(($event)['coords']);
     this.latitude = $event['coords'].lat;
     this.longitude = $event['coords'].lng;
     this.userform.patchValue({latitude: this.longitude});

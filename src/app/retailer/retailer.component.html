@@ -49,10 +49,10 @@
         </div>
     </div><br>
     <div class="row retailer-preview" *ngIf="!deleteImage">
-        <div class="col-md-12">
-            <div class="card" *ngFor="let image of inventoryImage">
-                <img class="card-img-top" [src]="image" alt="Card image cap">
-                <button type="button" class="btn btn-danger" (click)="onDeleteImage()">Delete Image</button>
+        <div class="col-md-4" *ngFor="let image of inventoryImage">
+            <div class="card" >
+                <img class="card-img-top" [src]="image.image" alt="Card image cap">
+                <button type="button" class="btn btn-danger" (click)="onDeleteImage(image)">Delete Image</button>
             </div>
         </div>
     </div>

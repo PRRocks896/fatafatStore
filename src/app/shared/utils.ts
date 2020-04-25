@@ -2,13 +2,35 @@
 
 export class Utils {
     static getDefaultUrl() {
-      return 'https://api.fatafat.store/api/v1.0/'  
+      return 'https://api.fatafat.store/api/v1.0/';  
       // return 'http://fatafatapi.epsilonium.com/api/v1.0/';
       }
     static getImages() {
       return 'http://img.fatafat.store/';
       // return 'https://api.fatafat.store/images/'
       // return 'http://fatafatapi.epsilonium.com/images/'; // store,inventory, order
+    }
+
+    static getWhatsappAdminNumber() {
+      return '9651891556';
+    }
+
+    static checkTokenValid() {
+      var currentDate = new Date();
+      var tokenDate = new Date(localStorage.getItem('expire'));
+      // console.log('current date: ', currentDate);
+      // console.log('token date: ', tokenDate);
+      // console.log(tokenDate >= currentDate);
+      if(tokenDate >= currentDate || tokenDate != null) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    static setToken(data) {
+      localStorage.setItem('token', data['access_token']);
+      localStorage.setItem('expire', data['.expires']);
     }
     
     static getGoogleMapKey() {
@@ -19,7 +41,8 @@ export class Utils {
     }
 
     static getWhatsappURL() {
-      return 'https://api.chat-api.com/instance119365/sendMessage?token=epu7vymklbgy06u3';
+      return 'https://api.chat-api.com/instance120629/sendMessage?token=10xpw1vf5gye9qmn';
+      // return 'https://api.chat-api.com/instance119365/sendMessage?token=epu7vymklbgy06u3';
     }
     
     static googleAPIKey() {

@@ -6,6 +6,7 @@ import { Utils } from '../shared/utils';
 import { LoginService } from './login.service';
 import { InventoryService } from '../shared/inventory.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { CommonService } from '../shared/common.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   imageURL: string = '';
   constructor(private router:Router, private titleService: Title, private loginService: LoginService,
-    private inventoryService: InventoryService, private spinner: NgxSpinnerService) {
+    private inventoryService: InventoryService, private spinner: NgxSpinnerService,
+    private commonService: CommonService) {
     this.titleService.setTitle('Login' + Utils.getAppName());
   }
 
@@ -34,26 +36,28 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    // console.log(this.loginForm.value);
-    this.spinner.show();
-    let body = this.loginForm.value; // new FormData();
-    // body.append('Email', this.loginForm.value.email);
-    // body.append('Password', this.loginForm.value.password);
-    this.loginService.doLogin(body).subscribe((res: any) => {
-      // console.log(res);
-      this.spinner.hide();
-      // this.imageURL = 'data:image/jpg;base64,' + res['StoreList'][0]['StoreImage']; 
-      if(res['errorcode'] == '0') { 
-        localStorage.setItem('retailer', JSON.stringify(res['StoreList'][0]));
-        this.router.navigate(['retailer']);
-      } else if(res['errorcode'] == '404') {
-        alert(res['message']);
-      }
-    }, (err: any) => {
-      this.spinner.hide();
-      alert(err.error.message);
-      console.error(err);
-    })
+    if(Utils.checkTokenValid()) {
+      this.spinner.show();
+      let body = this.loginForm.value; // new FormData();
+      this.loginService.doLogin(body).subscribe((res: any) => {
+        this.spinner.hide();
+        if(res['errorcode'] == '0') { 
+          localStorage.setItem('retailer', JSON.stringify(res['StoreList'][0]));
+          this.router.navigate(['retailer']);
+        } else if(res['errorcode'] == '404') {
+          alert(res['message']);
+        }
+      }, (err: any) => {
+        this.spinner.hide();
+        alert(err.error.message);
+        console.error(err);
+      })
+    } else {
+      this.commonService.getToken().subscribe((res: any) => {
+        Utils.setToken(res);
+        this.onLogin();
+      })
+    }
     
   }
 

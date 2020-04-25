@@ -5,6 +5,7 @@ import { CommonService } from '../shared/common.service';
 import { MapService } from './map.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Utils } from '../shared/utils';
 
 declare var google : google;
 
@@ -16,9 +17,9 @@ declare var google : google;
 export class MapComponent implements OnInit {
 
   title: string = 'AGM project';
-  latitude = 26.5123;
-  longitude = 80.2329;
-  zoom = 15;
+  latitude = 20.5937;
+  longitude = 78.9629;
+  zoom = 5;
   address: string;
   geoCoder;
   retailerList:any = [];
@@ -71,18 +72,36 @@ export class MapComponent implements OnInit {
             latitude: this.latitude,
             longitude: this.longitude
           }
-          this.mapService.getNearbyRetailers(body).subscribe((res: any) => {
-            console.log(res);
-            if(res.errorcode == '0') {
-              this.retailerList = res.StoreList;
-              // res.StoreList.filter(store => {
-              //   this.retailerList.push({latitude: store.Latitude , longitude: store.Longitude, shopName: store.StoreName})
-              // });
-              console.log(this.retailerList);
-            } else {
-              alert(res['message']);
-            }
-          },err => console.error(err));
+          if(Utils.checkTokenValid()) {
+            this.mapService.getNearbyRetailers(body).subscribe((res: any) => {
+              // console.log(res);
+              if(res.errorcode == '0') {
+                this.retailerList = res.StoreList;
+                // res.StoreList.filter(store => {
+                //   this.retailerList.push({latitude: store.Latitude , longitude: store.Longitude, shopName: store.StoreName})
+                // });
+                console.log(this.retailerList);
+              } else {
+                alert(res['message']);
+              }
+            },err => console.error(err));
+          } else {
+            this.commonService.getToken().subscribe((res: any) => {
+              Utils.setToken(res);
+              this.mapService.getNearbyRetailers(body).subscribe((res: any) => {
+                // console.log(res);
+                if(res.errorcode == '0') {
+                  this.retailerList = res.StoreList;
+                  // res.StoreList.filter(store => {
+                  //   this.retailerList.push({latitude: store.Latitude , longitude: store.Longitude, shopName: store.StoreName})
+                  // });
+                  console.log(this.retailerList);
+                } else {
+                  alert(res['message']);
+                }
+              },err => console.error(err));
+            })
+          }
         });
       });
     });
@@ -103,9 +122,11 @@ export class MapComponent implements OnInit {
     //     this.zoom = 15;
     //   });
     // } else {
-      this.latitude = 26.5123;
-      this.longitude = 80.2329;
-      this.zoom = 15;
+      this.latitude = 20.5937;
+      this.longitude = 78.9629;
+      // this.latitude = 26.5123;
+      // this.longitude = 80.2329;
+      this.zoom = 5;
     // }
   }
   private getAllRetailers() {

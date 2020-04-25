@@ -42,6 +42,12 @@ export class CommonService {
     })});
   }
 
+  getDeliveryOptions() {
+    return this.http.get(Utils.getDefaultUrl() + 'Common/DeliveryType', {headers: new HttpHeaders({
+      'Authorization': Utils.getAPIToken()
+    })});
+  }
+
   getOTP() {
     return this.http.post(Utils.getDefaultUrl() + 'Account/OTP', {}, {headers: {
       'Authorization': Utils.getAPIToken()

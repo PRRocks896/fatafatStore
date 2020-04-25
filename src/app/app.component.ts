@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonService } from './shared/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { Utils } from './shared/utils';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -10,24 +12,20 @@ import { NgxSpinnerService } from "ngx-spinner";
 export class AppComponent {
   title = 'fatafat-store';
 
-  constructor(private commonService: CommonService, private spinner: NgxSpinnerService) {
+  constructor(private commonService: CommonService, private spinner: NgxSpinnerService,
+    private title1: Title) {
+    this.title1.setTitle('Fatafat.store');
     this.spinner.show();
-    this.commonService.getToken().subscribe((res: any) => {
-      // console.log(res);
-      this.spinner.hide();
-      localStorage.setItem('token', res['access_token']);
-    },(err: any) => {
-      this.spinner.hide();
-      // alert(err.error.message);
-      console.error(err);
-    })
-    
-    // this.commonService.sendMsg({
-    //   phone: '+919904198433',
-    //   body: 'Your OTP is 5432'
-    // }).subscribe((res: any) => {
-    //   console.log(res);
-    // }, err => console.error(err));
-
+    // if(!Utils.checkTokenValid()) {
+      this.commonService.getToken().subscribe((res: any) => {
+        // console.log(res);
+        Utils.setToken(res);
+        this.spinner.hide();
+      },(err: any) => {
+        this.spinner.hide();
+        // alert(err.error.message);
+        console.error(err);
+      });
+    // }
   }
 }

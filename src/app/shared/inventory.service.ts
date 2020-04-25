@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Utils } from '../shared/utils';
+import { CommonService } from './common.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class InventoryService {
     'Content-Type': 'application/x-www-form-urlencoded',
     'Authorization': Utils.getAPIToken()
   });
-  constructor( private http: HttpClient) {}
+  constructor( private http: HttpClient, private commonService: CommonService) {}
 
   storeInverntory(body) {
     const params = new HttpParams({
