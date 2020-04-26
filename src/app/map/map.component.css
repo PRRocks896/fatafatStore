@@ -3,12 +3,68 @@ agm-map {
     height: 600px;
 }
 
+.header-content .box-flex {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.header-content .logo img {
+	width: 300px;
+}
+.header-content .right-box {
+	width: 92px;
+}
+.header-content .right-box a {
+    font-size: 16px;
+    width: 100%;
+    display: block;
+}
+.header-content .box-2 {
+	border-top: 1px solid #ddd;
+	margin-top: 30px;
+	padding-top: 30px;
+}
+.header-content .box-2 img {
+	width: 80px;
+	float: left;
+	margin-right: 15px;
+}
+.header-content .box-2 .content {
+	overflow: hidden;
+}
+.header-content .box-2 p {
+	font-size: 18px;
+	font-weight: 600;
+	margin: 0px;
+	margin-bottom: 3px;
+}
+.header-content .box-2 a {
+	font-size: 25px;
+	font-weight: bold;
+	color: #6f8bff;
+}
+.header-content .box-2 h1 {
+	font-size: 30px;
+	font-weight: bold;
+}
+@media screen and (max-width: 430px) {
+	.header-content .logo img {
+        width: 200px;
+        height: 80px;
+	}
+	.header-content .box-2 img {
+		float: none;
+	}
+	.header-content .box-2 {
+		text-align: center;
+	}
+	}
+
+
 .map-parents{
     position: relative;
 }
-.map-text{
-	
-}
+
 .close-cross{
     margin: 3em;
 	padding: 2em;

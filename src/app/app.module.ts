@@ -40,7 +40,7 @@ import { WhyusComponent } from './whyus/whyus.component';
     HttpClientModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAHPDpyiI1qbRxYDjQguNnTvcHhK-t7y7E',
+      apiKey: 'AIzaSyCYWddSVdQpA4VCKHoq61320heV7I9QEio',
       libraries: ['places']
     }),
   ],

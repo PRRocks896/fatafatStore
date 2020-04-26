@@ -19,7 +19,7 @@ export class MapComponent implements OnInit {
   title: string = 'AGM project';
   latitude = 20.5937;
   longitude = 78.9629;
-  zoom = 5;
+  zoom = 15;
   address: string;
   geoCoder;
   retailerList:any = [];
@@ -66,11 +66,11 @@ export class MapComponent implements OnInit {
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
-          this.zoom = 12;
+          this.zoom = 15;
           const body = {
-            location: place.address_components[1].long_name,
-            latitude: this.latitude,
-            longitude: this.longitude
+            location: 'Kanpur', //place.address_components[1].long_name,
+            latitude: 26.5123388, // this.latitude,
+            longitude: 80.2329 // this.longitude
           }
           if(Utils.checkTokenValid()) {
             this.mapService.getNearbyRetailers(body).subscribe((res: any) => {
@@ -114,6 +114,44 @@ export class MapComponent implements OnInit {
    }
 
    private setCurrentLocation() {
+    this.latitude = 26.5123388;
+    this.longitude = 80.2329;
+    this.zoom = 15;
+    const body = {
+      location: 'Kanpur', //place.address_components[1].long_name,
+      latitude: 26.5123388, // this.latitude,
+      longitude: 80.2329 // this.longitude
+    }
+    if(Utils.checkTokenValid()) {
+      this.mapService.getNearbyRetailers(body).subscribe((res: any) => {
+        // console.log(res);
+        if(res.errorcode == '0') {
+          this.retailerList = res.StoreList;
+          // res.StoreList.filter(store => {
+          //   this.retailerList.push({latitude: store.Latitude , longitude: store.Longitude, shopName: store.StoreName})
+          // });
+          console.log(this.retailerList);
+        } else {
+          alert(res['message']);
+        }
+      },err => console.error(err));
+    } else {
+      this.commonService.getToken().subscribe((res: any) => {
+        Utils.setToken(res);
+        this.mapService.getNearbyRetailers(body).subscribe((res: any) => {
+          // console.log(res);
+          if(res.errorcode == '0') {
+            this.retailerList = res.StoreList;
+            // res.StoreList.filter(store => {
+            //   this.retailerList.push({latitude: store.Latitude , longitude: store.Longitude, shopName: store.StoreName})
+            // });
+            console.log(this.retailerList);
+          } else {
+            alert(res['message']);
+          }
+        },err => console.error(err));
+      })
+    }
     // if ('geolocation' in navigator) {
     //   navigator.geolocation.getCurrentPosition((position) => {
     //     console.log(position);
@@ -122,11 +160,11 @@ export class MapComponent implements OnInit {
     //     this.zoom = 15;
     //   });
     // } else {
-      this.latitude = 20.5937;
-      this.longitude = 78.9629;
+      // this.latitude = 20.5937;
+      // this.longitude = 78.9629;
       // this.latitude = 26.5123;
       // this.longitude = 80.2329;
-      this.zoom = 5;
+      // this.zoom = 5;
     // }
   }
   private getAllRetailers() {

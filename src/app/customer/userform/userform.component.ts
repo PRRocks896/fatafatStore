@@ -183,9 +183,9 @@ export class UserformComponent implements OnInit {
             // console.log(OrderID);
             // console.log(OrderImageURL);
             const data = {
-              phone: '+91' + Utils.getWhatsappAdminNumber(), // this.userform.value.PhoneNumber,
+              phone: '+91' + this.selectedRetailer.Phonenumber, // this.userform.value.PhoneNumber,
               body: `
-Fatafat Grocery Order - Order# ${OrderID} received on ${m().add(1, 'days').format('DD/MM/YYYY')},
+Fatafat Grocery Order - Order# ${res.message.split('_')[1]} received on ${m().add(1, 'days').format('DD/MM/YYYY  hh:mm a')},
 *Customer:* 
 ${this.userform.value.FirstName} ${this.userform.value.LastName},
 ${this.userform.value.Address},
@@ -202,7 +202,7 @@ Order_Image: ${OrderImageURL},`
             this.commonService.sendMsg(data).subscribe((res1: any) => {
               this.spinner.hide();
               this.userform.reset();
-              alert(res.message.split('_')[0]);
+              alert(`Your order has been saved and sent to the retailer. Thank you for using Fatafat.Store! See you soon.`);
               // console.log(res1);
               this.router.navigate(['/']);
             },err => {

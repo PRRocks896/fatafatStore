@@ -33,11 +33,14 @@
         <div class="row store-text-box">
             <div class="col-md-12">
                 <div class="text-area-main">
-                    <textarea rows="3" [(ngModel)]="orderDetail" class="text-area" placeholder="Type your order here..." (keyup)="onTextEnter(orderText)" #orderText></textarea> <!--(keyup)="onTextEnter(orderText)" #orderText-->
+                    <label><b>Dear Customer - Enter your shopping list in the box below. Please enter one item per line</b></label>
+                    <textarea rows="6" [(ngModel)]="orderDetail" class="text-area" placeholder="Type your order here..." (keyup)="onTextEnter(orderText)" #orderText></textarea> <!--(keyup)="onTextEnter(orderText)" #orderText-->
                 </div>
             </div>
             <div class="col-md-12">
-                <p>Or</p>
+                <label>
+                    <b>If you have a written shopping list, take a photo of it and upload it below</b>
+                </label>
             </div>
             <div class="col-md-12">
                 <div class="form-group">

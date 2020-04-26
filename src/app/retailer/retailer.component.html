@@ -4,11 +4,29 @@
 <div class="container-fluid">
     <div class="row heading-container">
         <div class="col-md-12">
-            <h6>{{retailerDetail.StoreName | titlecase}}</h6>
+            <h2>{{retailerDetail.StoreName | titlecase}}</h2>
             <p>{{retailerDetail.Address}}, {{retailerDetail.Address1}}, {{retailerDetail.Location}}</p>
         </div>
     </div>
+    <div class="upload-container">
+        <h6><b>Photos of Your Inventory</b></h6>
+    </div>
     <div class="row upload-container">
+        
+        <div>
+            <input type="file" id="img" class="inputfile" name="img" accept="image/*" (change)="onSelectFile($event)">
+            <label for="img"><i class="fa fa-camera fa-3x" aria-hidden="true" style="color:#fec13d;"></i></label>
+        </div>
+        <div>
+            <p>UPLOAD PHOTOS</p>
+        </div>
+    </div>
+    <div style="text-align: center;">
+        <p>
+            (one image at a time)
+        </p>
+    </div>
+    <!-- <div class="row upload-container">
         <div class="col-md-12">
             <p>UPLOAD PHOTOS OF INVENTORY</p>
             <p><b>Note</b>: Upload single image at a time!</p>
@@ -18,10 +36,8 @@
         <div class="col-md-12">
             <input type="file" id="img" class="inputfile" name="img" accept="image/*" (change)="onSelectFile($event)">
             <label for="img"><i class="fa fa-camera fa-3x" aria-hidden="true" style="color:#fec13d;"></i></label>
-            <!-- &nbsp;&nbsp;
-            <i class="fa fa-camera fa-3x" aria-hidden="true" style="color:#fec13d;"></i> -->
         </div>
-    </div>
+    </div> -->
     <div class="row image-container" *ngIf="edited">
         <div class="col-md-12 image-preview">
             <img [src]="url" id="single-image">
@@ -31,15 +47,23 @@
             <button class="btn btn-dark" (click)="uploadIamge()" >Upload Image</button>
         </div> -->
     </div>
-    <div class="row or-container">
+    <div class="row ok-button">
+        <div class="col-md-12">
+            <button type="button" (click)="submitInventory()" class="btn btn-dark">Submit</button>
+        </div>
+    </div><br>
+    <!-- <div class="row or-container">
         <div class="col-md-12">
             <p>OR</p>
         </div>
-    </div>
+    </div> -->
     <div class="row inventory-list">
         <div class="col-md-12">
-            <p>TYPE YOUR INVENTORY</p>
-            <textarea class="form-control" [(ngModel)]="inventoryDetail" required></textarea>
+            <!-- <p>TYPE YOUR INVENTORY</p> -->
+            <p>
+                Add list of available items in the box below [one item per line]:
+            </p>
+            <textarea rows="6" class="form-control" [(ngModel)]="inventoryDetail" required></textarea>
         </div>
     </div>
     <br>
